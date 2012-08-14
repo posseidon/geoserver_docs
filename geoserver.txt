@@ -1,0 +1,129 @@
+GEOSERVER
+
+I. Bevezetés
+
+GeoServer egy nyílt-forráskód alapú szoftver, amely Java programozási nyelven íródott. Lehetőséget ad térképek:
+  - megosztására
+  - adatszolgáltatására
+  - editálására segéd javaszkript könyvtárak segítségével.
+Különböző adatforrásokat tud feldolgozni mint, ESRI Shapefile, MySQL Spatial, PostgreSQL Spatial. Ezenkívül felhasználói felülete rendkívül könnyen használható, így nem igényel külön oktatást. Kliens oldali, azaz böngészőben megjelenítésért az OpenLayers javaszkript könyvtár használatát támogatják. Természetesen ettől ellehet tekinteni, mivel a térképek és azon levő adatok szolgáltatása Open Geospatial Consortium által meghatározott szabvány alapján törénik.
+
+Azonban még mielött belemennénk a részletekbe, sokakban felmerül a kérdés, hogy miért pont GeoServer, hiszen több szempontot is megkell vizsgálni mint:
+  - Sebessége: mennyi klienst tud kiszolgálni egyszerre.
+  - Memória igény: mennyi memóriát igényel nagy terhelés esetén.
+  - Skálázhatóság: kluszterezhetősége.
+  - Cache adatok kezelése: hatékony cache algoritmusok valamint azok kezelése.
+  - Konfigurálhatóság: konfigurációs feladatok komplexitása.
+
+Ezen feltételek ismeretében kell eldöntenünk, hogy melyik térkép kiszolgáló rendszer szeretnénk alkalmazni. Jelenleg csak a nyílt-forráskódú rendszereket figyelembe véve két versenyző található:
+  1. MapServer
+  2. Geoserver
+
+=============================
+Mivel felhasználói felület és konfigurálhatósági szempontból egyszerűbb, ezért választjuk a GeoServer-t
+=============================
+
+II. Funkcionalitás
+
+1. Adatformátumok:
+
+  Támogatott adatformátumok:
+    - PostGIS
+	- Oracle Spatial
+	- ArcSDE
+	- DB2
+	- MySQL
+	- Shapefiles
+	- GeoTIFF
+	- GTOPO30
+	- ECW, MrSID
+	- JPEG2000
+
+  Szabványos protokollokat támogatva a következő kimeneti formátumokat támogat:
+	- KML
+	- GML
+	- Shapefile
+	- PDF
+	- GeoRSS
+	- GeoJSON
+	- GIF
+	- JPEG
+	- SVG
+	- PNG
+	- és még több.
+
+In addition, one can edit data via the WFS transactional profile (WFS-T). GeoServer includes an integrated OpenLayers client for previewing data layers.
+
+2. Szolgáltatások:
+	Web szolgáltatások:
+	  a. WFS - Web Feature Service.
+	  b. WMS - Web Map Service.
+	  c. WCS - Web Coverage Service.
+	  d. VOWSS - Vitural OWS Service.
+
+	Rest szolgáltatások:
+	
+
+
+2. Struktúrális felépítés:
+  GeoServer főkomponense GeoTools (http://www.geotools.org). Ezenkívül, REST szolgáltatások kiszolgálására Java-n alapuló Restlet keretrendszert használ. Beépített web-szervere Jetty. GeoWebCache, egy Java alapú cache komponens, hasonló a TileCache-hez.
+  Bővebb leírás az alábbi címeken:
+    GeoTools
+	  - http://www.geotools.org/
+    Restlet
+	  - http://www.restlet.org/
+    Jetty
+	  - http://jetty.codehaus.org/jetty/
+    GeoWebCache
+	  - http://geowebcache.org/
+
+
+
+III. Telepítés
+
+GeoServer támogatja mind a három operációs rendszert, Microsoft Windows, Linux disztribúciók, valamint OSX. Ezenkívül, WAR (Web archive) formátumban is elérhető, amely feltelepíthető meglévő alkalmazás szerverre.
+
+1. Windows telepítés
+
+2. Linux telepítés
+
+3. OSX telepítés
+
+4. WAR telepítés
+
+  Különálló servlet alkalmazásként telepíthető meglévő servlet konténerekbe, mint Apache Tomcat vagy Jetty. Elsődleges követelmény JAVA SE (Standard Edition). Oracle Java SE 6 verziótól érdemes használni, mivel GeoServer 2.2.x verzió nem támogatja JRE (Java futtató környezet) 5 verzióját. JDK (Java fejlesztői keretrendszer) nem szükséges GeoServer futtatásához.
+
+  Telepítési lépések:
+	a. GeoServer oldalon megtalálható WAR letöltése.
+    b. Másoljuk át a geoserver.war állományt az alkalmazás konténer webapps alkalmazások könyvtárába.
+    c. Az alkalmazás szerver automatikusan kicsomagolja és telepíti az alkalmazást.
+    d. Ajánlott: újra indítani az alkalmazás szervert.
+
+  Futtatás:
+	Az alkalmazás sikeres telepítése után, az alkalmazás konténer adminisztrációs felületén elkell indítani az alkalmazást, ha az még nincs elindítva. Általában a következő címen lehet elérni a GeoServer-t: http://alkalmazas_container_url/geoserver . Tomcat használata esetén, a következő címen érhető el lokális gépről: http://127.0.0.1:8080/geoserver.
+
+  Eltávolítás:
+	a. Alkalmazás konténer leállítása.
+	b. geoserver.war eltávolítása az webapps alkalmazás könyvtárból.
+
+IV. Konfiguráció
+
+V. Optimalizáció
+
+VI. Felhasználási területek
+
+VII. Fogalmak
+
+------------------------------------------
+	1. REST (Representational State Transfer) egy strukturális tervminta, amely elosztott rendszerekre lett kitalálva. Az utóbbi években, szinte felváltotta a régi megszokott web szolgáltatások mint, SOAP vagy WSDL.
+    Négy alapvető művelete:
+      - GET: kérés
+	  - POST: küldés
+      - PUT: javítás
+      - DELETE: törlés
+
+REST is an acronym for “REpresentational State Transfer”. The basic idea of REST is to rely on a fixed set of operations on named resources, where the representation of each resource is the same for retrieving and setting information. In other words, if you retrieve data in an XML format, you can send data back to the server in the same XML format to set it.
+
+Operations on resources are implemented with the standard primitives of HTTP: GET, DELETE, PUT, POST, HEAD, etc. Each resource is represented as a standard URI.
+
+—————————————————————
