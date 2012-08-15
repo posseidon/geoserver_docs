@@ -146,7 +146,132 @@ Előkészületek:
 	d. Indítsuk el a Tomcat7 servlet container-t.
 	e. Ellenőrzés: http://127.0.0.1:8080/geoserver
 
+IV. GeoServer Data könyvtár
+
+GeoServer “data directory” adat könyvtár konfigurációs információk tárolására szolgál, mint:
+	- milyen típusú adatok szolgáltat.
+	- hol vannak az adatok eltárolva.
+	- milyen szolgáltatásai vannak.
+	- WMS illetve WFS szolgáltatások definíciója.
+Ezenkívül tartalmaz számos alkalmazásszintű fájlokat is. Üzemi felhasználás esetén, érdemes egy külső meghajtóra tenni az adat könyvtárat egyszerű frissítés céljából. 
+
+Felépítése:
+	Mivel szinte minden konfiguráció elérhető a webes felületen keresztül, azon belül a Web Administration Interface résznél, ezért csak felületesen fogjuk tárgyalni az adat könyvtár felépítését.
+	Felhasználó által módosítható könyvtárak:
+		- logs
+		- palettes
+		- templates
+		- user-projection
+		- www
+-------------------------------------------------------------------------
+<data_directory>/
+
+   global.xml
+   logging.xml
+   wms.xml
+   wfs.xml
+   wcs.xml
+
+   data/
+   demo/
+   geosearch/
+   gwc/
+   layergroups/
+   logs/
+   palettes/
+   plugIns/
+   security/
+   styles/
+   templates/
+   user_projections/
+   workspaces/
+     |
+     +- workspace dirs...
+        |
+        +- datastore dirs...
+           |
+           +- layer dirs...
+   www/
+————————————————————————————————————
+
+	1. XML állományok (global, logging, wms, wfs, wcs)
+Szolgáltatásokhoz és beállításokhoz tartozó globális leíró adatokat adnak meg az aktuális GeoServer szerverről.
+
+
+Fájl	      Leírás
+global.xml	  Általános beállítások szolgáltatásokra, mint karakterkódolás
+logging.xml	  Loggolási beállítások, mint log szint, logfile elérési útvonala, csendes mód vagy konzolra is loggoljon.
+wcs.xml	      WCS szolgáltatásra vonatkozó beállítások.
+wfs.xml	      WFS szolgáltatásra vonatkozó beállítások.
+wms.xml	      WMS szolgáltatásra vonatkozó beállítások.
+
+	2. Workspaces
+Metaadatokat tartalmaz a kipublikált térkép rétegekről. Minden létrehozott workspace-hez tartozik egy könyvár, amelyben tárolja a hozzátartozó adatokat, mint rétegek könyvtárait, rétegenként egy layer.xml leíró fájl, valamint coverage.xml vagy featuretype.xml, attól függ, hogy az adott réteg raszteres vagy vektoros adatokat tartalmaz.
+
+	3. Data
+Geospatial adatok tárolására alkalmas könyvtár. Általában shapefile-ok, raszteres fájlok, ezenkívül bármilyen formátumok tárolására alkalmas. Könnyebb adatelérés céljából lett létrehozva a Data könyvtár, mivel egy helyen vannak a térképes állományok.
+Egy catalog.xml leíró fájl tartalmazza információkat:
+--------------------------------------------------------------
+<datastore id="foo_shapefile">
+   <connectionParams>
+     <parameter name="url" value="file://C:/gis_data/foo.shp" />
+   </connectionParams>
+</datastore>
+--------------------------------------------------------------
+Ha változik a foo.shp fájl elérési útvonala, akkor csak egy helyen megváltoztatni a catalog.xml fájlban.
+
+	4. Demo
+Ebben a könyvtárban találhatóak a példa, bemutató alkalmazások.
+
+	5. Geosearch
+Ebben a könyvtárban találhatóak a KML fájlok régiókra vonatkozó adatok.
+
+	6. GWC
+GeoWebCache által létrehozott cache fájlok itt tárolódnak.
+
+	7. Layersgroup
+Konfigurációs információkat tartalmaz a megadott rétegcsoportokról.
+
+	8. Logs
+Ide kerülnek a log fájlok.
+
+	9. Security
+Bizontsági beállításokkal kapcsolatos konfigurációs fájlokat tartalmaz a Security könyvtár. Konfigurációs fájlokban meghatározhatjuk a szerepköröket, szolgáltatások, adatok hozzáférését. Ezt részletesebben fogjuk a későbbiekben tárgyalni.
+
+	10. Styles
+SLD (Styled Layer Descriptor) leíró fájlokat tartalmaz. Minden egyes fájlhoz tartozik egy catalog.xml, amely a következő képpen nézhet ki:
+--------------------------------------------------------------
+<style id="point_style" file="default_point.sld"/>
+--------------------------------------------------------------
+
+	11. User_projections
+Ebben a könyvtárban található egy epsg.properties fájl, amelyben saját vetületi rendszert tudunk megadni, a hivatalos EPSG adatbázisban találhatókon kívül.
+
+	12. www
+Az összes fájl, amely a www könyvtár alatt van, a http://<host:port>/geoserver/www címen elérhető. Hasznos lehet, ha statikus térkép fájlokat szeretnénk szolgáltatni.
+
+IV. Felhasználói felület
+  Alapértelmezett link GeoServer-re http://localhost:8080/geoserver/web.
+	1. Bejelentkezés
+	Alapértelmezett felhasználói név: admin, jelszó: geoserver
+	2. Szerver információk
+	3. Szolgáltatások
+	4. Adatforrások
+	5. Réteg megtekintő
+  
+  >>>>Web Administration Interface Quickstart<<<<<
+  >>>>Publishing a Shapefile<<<<<
+  >>>>Publishing a PostGIS Table<<<<<
+  >>>>Styling a Map<<<<<
+
+
+  >>>>Web Administration Interface<<<
+
+IV. Biztonság
+  >>>>>Security<<<<<<
+
 IV. Konfiguráció
+  >>>>Working with Application Schemas<<<<
 
 V. Optimalizáció
 
