@@ -85,11 +85,40 @@ GeoServer támogatja mind a három operációs rendszert, Microsoft Windows, Lin
 
 1. Windows telepítés
 
-2. Linux telepítés
+Windows alatt kétféle módon lehet feltelepíteni: telepítő vagy bináris könyvtárak formájában.
 
-3. OSX telepítés
+  Telepítő használata:
+	a. http://geoserver.org/display/GEOS/Download oldalon található “Windows Installer” linkre kattintva, letölthető a telepítő állomány.
+	b. Letöltés után indítsuk el a telepítő alkalmazást.
+    ....
 
-4. WAR telepítés
+  Bináris könyvtár használata:
+    Előnye, hogy bármely operációs rendszeren futtatható. Leggyakrabban ezt a módszert alkalmazzák, mivel független az operációs rendszer típusától. Ez a verzió tartalmaz egy beépített Jetty servlet futtató konténert.
+
+	a. http://geoserver.org/display/GEOS/Download oldalon, miután kiválasztottuk, hogy melyik verziót szeretnénk használni, kattintsunk rá a “Binary (OS independent)” linkre. Letöltés után, tömörítsük ki pl.: C:\Program Files\GeoServer könyvtárba.
+	b. JAVA_HOME környezeti változó beállítása, ha még nincs beállítva. Ez megadja a JDK vagy JRE könyvtár elérési útvonalát, mint %JAVA_HOME%\bin\java.exe. 
+		- A következő útvonalon lehet elérni a környezeti beállításokat: Control Panel -> System -> Advanced -> Environment Variables
+		- System variables részben, klikkeljünk a New gombra.
+		- Name: JAVA_HOME
+		- Value: JDK vagy JRE könyvtár abszolút elérési útvonala.
+ 		- OK: háromszor.
+	c. GEOSERVER_HOME környezeti változó beállítása.
+		- A JAVA_HOME-hoz Hasonló módon állítsuk be a GEOSERVER_HOME elérési útvonalát is.
+		- Valamint a GEOSERVER_DATA_DIR elérését is, amely a GeoServer számára szükséges adat könyvtár elérési útvonalát adja meg. Általában %GEOSERVER_HOME%\data_dir-ben érdemes létrehozni, ha fejlesztési célokra használjuk, különben egy külön meghajtóra érdemes beállítani.
+
+
+	d. Futtatáshoz, GEOSERVER_HOME könyvtárban található startup.bat fájlt kell elindítani, aminek hatására megjelenik egy konzolos ablak, ahol diagnosztikai és futtatási információkat találhatunk. Ellenőrzésképpen navigáljunk el a http://localhost:8080/geoserver címre.
+
+  Leállítás:
+    Kétféleképpen lehet leállítani:
+      a. GEOSERVER_HOME könyvárban található shutdown.bat elindítása.
+	  b. A startup.bat hatására elindított konzol ablak bezárása.
+
+  Eltávolítás:
+	a. GeoServer leállítása.
+	b. GEOSERVER_HOME könyvtár letörlése.
+
+2. WAR telepítés
 
   Különálló servlet alkalmazásként telepíthető meglévő servlet konténerekbe, mint Apache Tomcat vagy Jetty. Elsődleges követelmény JAVA SE (Standard Edition). Oracle Java SE 6 verziótól érdemes használni, mivel GeoServer 2.2.x verzió nem támogatja JRE (Java futtató környezet) 5 verzióját. JDK (Java fejlesztői keretrendszer) nem szükséges GeoServer futtatásához.
 
@@ -105,6 +134,17 @@ GeoServer támogatja mind a három operációs rendszert, Microsoft Windows, Lin
   Eltávolítás:
 	a. Alkalmazás konténer leállítása.
 	b. geoserver.war eltávolítása az webapps alkalmazás könyvtárból.
+	
+
+3. Linux telepítés (Debian)
+
+Előkészületek:
+  Figyelem: Root jogosultság szükséges.
+	a. Telepítsük fel a Tomcat7 servlet konténert a rendszerre: apt-get, synaptic vagy aptitude segítségével.
+	b. Kövessük a WAR telepítési útmutatóját.
+	c. Másoljuk át a WAR állományt /var/lib/tomcat7/webapps könyvtárba.
+	d. Indítsuk el a Tomcat7 servlet container-t.
+	e. Ellenőrzés: http://127.0.0.1:8080/geoserver
 
 IV. Konfiguráció
 
