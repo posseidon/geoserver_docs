@@ -258,17 +258,89 @@ IV. Felhasználói felület
 	3. Szolgáltatások
 	4. Adatforrások
 	5. Réteg megtekintő
+
+  1. Adminisztráció felület
+    a. Alap információk
+    Belépés után a nyitó oldalon található az alapinformációk témakör szerint csoportosítva:
+		Szerverrel kapcsolatos műveletek:
+			- Szerver állapota
+			- Globális belállítások
+			- JAI (Java Advanced Imaging) beállítások
+			- Geoserver-ről alapinformációk.
+		Szolgáltatások
+			- WCS: Web content service
+			- WFS: Web feature service
+			- WMS: Web map service
+		Adatok
+			- Workspaces
+			- Adattárolók
+			- Rétegek
+			- Réteg csoportok
+			- Térkép stílusok
+
+	b. Szerver információk
+	Szerver állapotára vonatkozó információk tartalmazzák a konfigurációs paramétereket valamint futásidejű információkat.
+	Állapot leírások:
+
+	Lokkolások:
+		Meggátolja, hogy egy adott idő pillanatban több felhasználó szerkeszthessen egy adott feature-t WFS szolgálgatáson keresztül. Adat zárás esetén, egy adott időben, csak egy WFS szerkesztő férhet hozzá az adathoz. Szerkesztés rögzítése után, adat zárás feloldódik, azaz szerkeszthetővé válik egy másik felhasználó számára. Null zárások esetén, nincs zárolás a rendszerben, ellenkező esetben a “Free locks”-al (Zárások feloldása) tudjuk felszabdítani.
+
+	Kapcsolatok:
+		Érvényes kapcsolatok száma a vektoros adattárolókhoz.
+	
+	Memória felhasználás:
+		Geoserver által felhasznált memória terület. “Free Memory” (memória felszabadítás) linkre kattintva ürítjük ki azon memória területet, amelyet kijelölt a garbage collector.
+
+	JVM (Java virtual machine) verzió:
+		JVM verzió szám azonosítója. Például: 1.5.0
+
+	Natív Java Advanced Imaging keretrendszer:
+		Geoserver által használt Java advanced imaging a képek kirajzolására valamint szerkesztésére alkalmas keterendszer. Helyes telepítés esetén, JAI keretrendszer felgyorsíthatja a WCS valamint WMS szolgáltatások sebességét és hatékonyságát.
+
+	JAI IMAGE IO:
+		Raszteres adatok betöltésére és kódolására alkalmas keretrendszer. Helyes telepítés esetén, hasonló módon mint Native JAI esetén hatékonyságra és sebességre vonatkozó javulásokat érhetünk el.
+
+	JAI Maximum Memory:
+		Az elérhető tile cache méretét lehet megadni bájt-ban, például 333325056 bájt.
+
+	JAI Memory Usage:
+		JAI által felhasználható futás idejű memória igény beállítása tile cache szempontjából elengedhetetlen beállítás. “Free Memory” linkre kattintva kiüríthetjük a tile cache-t a memóriából.
+
+	JAI Memory Threshold:
+		Tile cache ürítés esetén memória felhasználási küszöböt ad meg százalékban, amely 0 és 100 közötti értéket vesz fel , pl. a tile cache 75%-át kell megtartani Free Memory esetén.
+
+	JAI Tile Threads:
+		JAI által felhasználható szálak száma, tile-ok kiszolgálása érdekében.
+
+	JAI Tile Thread Priority:
+		Tile ütemező szál elsőbbségi értéke, amely 1 és 10 között vehet fel értéket, valamint alapértelmezett értéke 5.
+
+	Update Sequence:
+		Szerver konfigurációs adatok változására vonatkozó számosságot határoz meg.
+
+	Resource Cache:
+		Geoserver nem cache-el adatokat, azonban adat tárolókhoz tartozó kapcsolatokat cache-el, mint feature type definíciók, external graphics, betű méretre beállítások és CRS definíciókat. “Clear” link kattintás hatására, kiüríti és felszólítja a Geoserver-t, hogy a következő teendőket hajtsa végre:
+			- töltse újra az adat tárolókra vonatkozó kapcsolatokat
+			- olvassa újra a raszteres állományokat
+			- CRS definíicók újra töltése a ${GEOSERVER_DATA_DIR}/user_projections/epsg.properties fájl alapján.
+
+	Configuration and Catalog:
+		Geoserver minden konfigurációs adatát memóriában tárol. Ezért ha bármilyen okból megváltozott a konfigurációs állomány, “Reload” linkre kattintva, rákényszeríti a Geoserver-t, hogy az összes konfigurációs beállításait újra töltse be a könyvtár struktúrából.
+
+	c. Réteg információk
+	d. Adat könyvtár információk
+	e. Szolgáltatások
+	f. Cache információk
+	g. Biztonsági információk
+
+
+  2. Vektoros adatok
+	a. Shapefile használata
+	b. Postgis használata
+
+  3. Stílus beállítások
   
-  >>>>Web Administration Interface Quickstart<<<<<
-  >>>>Publishing a Shapefile<<<<<
-  >>>>Publishing a PostGIS Table<<<<<
-  >>>>Styling a Map<<<<<
 
-
-  >>>>Web Administration Interface<<<
-
-IV. Biztonság
-  >>>>>Security<<<<<<
 
 IV. Konfiguráció
   >>>>Working with Application Schemas<<<<
@@ -291,4 +363,5 @@ REST is an acronym for “REpresentational State Transfer”. The basic idea of 
 
 Operations on resources are implemented with the standard primitives of HTTP: GET, DELETE, PUT, POST, HEAD, etc. Each resource is represented as a standard URI.
 
-—————————————————————
+------------------------------------------
+
