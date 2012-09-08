@@ -1,0 +1,106 @@
+1. What is your favourite feature of the most recent Rails release? 
+  Regarding Rails 3.1
+    Assets
+    Improved Migration
+    Secure password
+    Identity Map (haven't used it yet) 
+
+2. What are the biggest cons of Ruby on Rails? 
+  Methodologies:
+    Rapid development.
+    Built-in Test driven development.
+    MVC model designed for team work.
+    Easily integrated into Jenkins or Cruisecontrol.
+
+  Development:
+    Ruby itself.
+    By using RVM Gems are group according to gemsets.
+    RSpec or Cucumber of Testing understandable for non-developers.
+    Gems.
+
+  Quality issues:
+    Rake Tasks easily supports automated testing like guard and static code analyzer like cane, reek, flog, flay.
+    By default supports Git version control.
+    
+      
+3. If you could improve one part of Rails, what would it be?
+  Coffee script.
+
+4. What Ruby/Rails projects/libraries have you contributed to? Please provide links/details.
+  Ruby project: Loading Openstreetmaps data into MongoDB
+  Link: https://github.com/posseidon/osm2mongo
+
+5. If Rails didn't exist, what tools do you think you'd be using right now, and why?
+  Java Enterprise solutions, like JBoss or Spring.
+  Reasons:
+    - MVC model.
+    - Platform independent.
+    - Support TDD
+    - ORM
+    - Supported by Oracle.
+
+6. What do you think about testing as part of development?
+  At the beginning very hard to introduce among developers. After developers realize that, the quality of their code will improve, less error prone, almost immediate bug detection, integrations among components are much safer, it's worthy.
+
+7. How do you cope with differences between browsers?
+  Test should be done on Firefox, Chrome and Safari. For IEx there should be a separate test suite.
+
+8. Can you name one advantage of test-first development over test-last development?
+  Don't write unnecessary codes, only those which are needed.
+
+9. If you've ever done any pair programming, can you think of one thing about it you enjoyed & one thing you didn't?
+  Unfortunately I haven't done it yet.
+
+10. Is any code you have written currently in a live production system? Where?
+  Due to the nature of my job, almost every code I've written, have been used by state offices. They are experimental solutions.
+
+11. Have you ever experienced problems integrating parts of a system written by different people? Howdid you tackle the problems?
+  Communication and documentation are the most important issues for a successful integration.
+
+12. If a project has 70% test coverage, what conclusion is it safe to draw?
+  In some cases, it does not mean that the code is safe, and bug free. It depends on the test case coverage.
+
+13. How old were you when you first wrote a computer program?
+  I was 18 when my first bash script was made.
+
+14. Have you ever been given ambiguous requirements? How did you resolve the ambiguity?
+  I've talk with those among team members, who could give me some information. I will mention it on scrum meeting. If scrum master could not solve the problem, we have to ask for more specific requirement from our product owner.
+
+15. What is your opinion about version control branching?
+  Used for bug fixes and experimenting things not related to feature branch.
+  Never branch from main line code.
+
+16. What is the best book about software development that you've read?
+  Lean from the Trenches: Managing Large-Scale Projects with Kanban.
+
+17. If you had to cook a meal for 18 developers and product people, what would you cook? (We love these http://devfort.com)
+  Pizza
+
+18. What is the one thing you'd like us to know about you that isn't in your CV?
+  Love experimenting on new open source technologies.
+
+19.What is your least favourite of the programming languages you've used and why?
+  Language: PHP
+  Reason: slow and lack of coding conventions resulting ugly codes.
+
+20. What interests you about working with Ruby on Rails?
+  It's simple and rapid.
+
+21. How many developers would be in your ideal development team?
+  Between 3 and 5.
+
+22. If you find a bug in a colleague's code, what do you normally do about it?
+  I'm sending it back for code review with a new bug ticket.
+
+23. Is there one personality trait that you think makes a good software developer?
+  Laziness.
+
+24. What is most important to you in choosing a job – the technologies being used, the remuneration package, the people, the problem domain, or something else?
+  Technologies and improvement of experiences.
+
+25. If you weren't a software developer, what would you be?
+  Probably a carpenter.
+  
+
+
+

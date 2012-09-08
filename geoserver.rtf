@@ -1,0 +1,913 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1187
+\cocoascreenfonts1{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red85\green85\blue85;\red154\green154\blue154;\red12\green98\blue144;
+\red85\green85\blue85;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc1\levelnfcn1\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{upper-roman\}.}{\leveltext\leveltemplateid1\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}.}{\leveltext\leveltemplateid101\'02\'00.;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid2}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}}
+\pard\tx560\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\slleading30\pardirnatural
+
+\f0\fs28 \cf2 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\pard\tx220\tx720\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\li720\fi-720\slleading30\pardirnatural
+\ls1\ilvl0\cf2 {\listtext	I.	}Bevezet\'e9s\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\slleading30\pardirnatural
+\cf2 \
+GeoServer egy ny\'edlt-forr\'e1sk\'f3d alap\'fa szoftver, amely Java programoz\'e1si nyelven \'edr\'f3dott. Lehet\uc0\u337 s\'e9get ad t\'e9rk\'e9pek:\
+  - megoszt\'e1s\'e1ra\
+  - adatszolg\'e1ltat\'e1s\'e1ra\
+  - edit\'e1l\'e1s\'e1ra seg\'e9d javaszkript k\'f6nyvt\'e1rak seg\'edts\'e9g\'e9vel.\
+K\'fcl\'f6nb\'f6z\uc0\u337  adatforr\'e1sokat tud feldolgozni mint, ESRI Shapefile, MySQL Spatial, PostgreSQL Spatial. Ezenk\'edv\'fcl felhaszn\'e1l\'f3i fel\'fclete rendk\'edv\'fcl k\'f6nnyen haszn\'e1lhat\'f3, \'edgy nem ig\'e9nyel k\'fcl\'f6n oktat\'e1st. Kliens oldali, azaz b\'f6ng\'e9sz\u337 ben megjelen\'edt\'e9s\'e9rt az OpenLayers javaszkript k\'f6nyvt\'e1r haszn\'e1lat\'e1t t\'e1mogatj\'e1k. Term\'e9szetesen ett\u337 l ellehet tekinteni, mivel a t\'e9rk\'e9pek \'e9s azon lev\u337  adatok szolg\'e1ltat\'e1sa Open Geospatial Consortium \'e1ltal meghat\'e1rozott szabv\'e1ny alapj\'e1n t\'f6r\'e9nik.\
+\
+Azonban m\'e9g miel\'f6tt belemenn\'e9nk a r\'e9szletekbe, sokakban felmer\'fcl a k\'e9rd\'e9s, hogy mi\'e9rt pont GeoServer, hiszen t\'f6bb szempontot is megkell vizsg\'e1lni mint:\
+  - Sebess\'e9ge: mennyi klienst tud kiszolg\'e1lni egyszerre.\
+  - Mem\'f3ria ig\'e9ny: mennyi mem\'f3ri\'e1t ig\'e9nyel nagy terhel\'e9s eset\'e9n.\
+  - Sk\'e1l\'e1zhat\'f3s\'e1g: kluszterezhet\uc0\u337 s\'e9ge.\
+  - Cache adatok kezel\'e9se: hat\'e9kony cache algoritmusok valamint azok kezel\'e9se.\
+  - Konfigur\'e1lhat\'f3s\'e1g: konfigur\'e1ci\'f3s feladatok komplexit\'e1sa.\
+\
+Ezen felt\'e9telek ismeret\'e9ben kell eld\'f6nten\'fcnk, hogy melyik t\'e9rk\'e9p kiszolg\'e1l\'f3 rendszer szeretn\'e9nk alkalmazni. Jelenleg csak a ny\'edlt-forr\'e1sk\'f3d\'fa rendszereket figyelembe v\'e9ve k\'e9t versenyz\uc0\u337  tal\'e1lhat\'f3:\
+  1. MapServer\
+  2. Geoserver\
+  3. Deegree\
+\
+=============================\
+Mivel felhaszn\'e1l\'f3i fel\'fclet \'e9s konfigur\'e1lhat\'f3s\'e1gi szempontb\'f3l egyszer\uc0\u369 bb, ez\'e9rt v\'e1lasztjuk a GeoServer-t\
+=============================\
+\
+II. Funkcionalit\'e1s\
+\
+1. Adatform\'e1tumok:\
+\
+  T\'e1mogatott adatform\'e1tumok:\
+    - PostGIS\
+	- Oracle Spatial\
+	- ArcSDE\
+	- DB2\
+	- MySQL\
+	- Shapefiles\
+	- GeoTIFF\
+	- GTOPO30\
+	- ECW, MrSID\
+	- JPEG2000\
+\
+  Szabv\'e1nyos protokollokat t\'e1mogatva a k\'f6vetkez\uc0\u337  kimeneti form\'e1tumokat t\'e1mogat:\
+	- KML\
+	- GML\
+	- Shapefile\
+	- PDF\
+	- GeoRSS\
+	- GeoJSON\
+	- GIF\
+	- JPEG\
+	- SVG\
+	- PNG\
+	- \'e9s m\'e9g t\'f6bb.\
+\
+In addition, one can edit data via the WFS transactional profile (WFS-T). GeoServer includes an integrated OpenLayers client for previewing data layers.\
+\
+2. Szolg\'e1ltat\'e1sok:\
+	Web szolg\'e1ltat\'e1sok:\
+	  a. WFS - Web Feature Service.\
+	  b. WMS - Web Map Service.\
+	  c. WCS - Web Coverage Service.\
+	  d. VOWSS - Vitural OWS Service.\
+\
+	Rest szolg\'e1ltat\'e1sok:\
+	\
+\
+\
+2. Strukt\'far\'e1lis fel\'e9p\'edt\'e9s:\
+  GeoServer f\uc0\u337 komponense GeoTools (http://www.geotools.org). Ezenk\'edv\'fcl, REST szolg\'e1ltat\'e1sok kiszolg\'e1l\'e1s\'e1ra Java-n alapul\'f3 Restlet keretrendszert haszn\'e1l. Be\'e9p\'edtett web-szervere Jetty. GeoWebCache, egy Java alap\'fa cache komponens, hasonl\'f3 a TileCache-hez.\
+  B\uc0\u337 vebb le\'edr\'e1s az al\'e1bbi c\'edmeken:\
+    GeoTools\
+	  - http://www.geotools.org/\
+    Restlet\
+	  - http://www.restlet.org/\
+    Jetty\
+	  - http://jetty.codehaus.org/jetty/\
+    GeoWebCache\
+	  - http://geowebcache.org/\
+\
+\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+III. Telep\'edt\'e9s\
+\
+GeoServer t\'e1mogatja mind a h\'e1rom oper\'e1ci\'f3s rendszert, Microsoft Windows, Linux disztrib\'faci\'f3k, valamint OSX. Ezenk\'edv\'fcl, WAR (Web archive) form\'e1tumban is el\'e9rhet\uc0\u337 , amely feltelep\'edthet\u337  megl\'e9v\u337  alkalmaz\'e1s szerverre.\
+\
+1. Windows telep\'edt\'e9s\
+\
+Windows alatt k\'e9tf\'e9le m\'f3don lehet feltelep\'edteni: telep\'edt\uc0\u337  vagy bin\'e1ris k\'f6nyvt\'e1rak form\'e1j\'e1ban.\
+\
+  Telep\'edt\uc0\u337  haszn\'e1lata:\
+	a. http://geoserver.org/display/GEOS/Download oldalon tal\'e1lhat\'f3 \'93Windows Installer\'94 linkre kattintva, let\'f6lthet\uc0\u337  a telep\'edt\u337  \'e1llom\'e1ny.\
+	b. Let\'f6lt\'e9s ut\'e1n ind\'edtsuk el a telep\'edt\uc0\u337  alkalmaz\'e1st.\
+    ....\
+\
+  Bin\'e1ris k\'f6nyvt\'e1r haszn\'e1lata:\
+    El\uc0\u337 nye, hogy b\'e1rmely oper\'e1ci\'f3s rendszeren futtathat\'f3. Leggyakrabban ezt a m\'f3dszert alkalmazz\'e1k, mivel f\'fcggetlen az oper\'e1ci\'f3s rendszer t\'edpus\'e1t\'f3l. Ez a verzi\'f3 tartalmaz egy be\'e9p\'edtett Jetty servlet futtat\'f3 kont\'e9nert.\
+\
+	a. http://geoserver.org/display/GEOS/Download oldalon, miut\'e1n kiv\'e1lasztottuk, hogy melyik verzi\'f3t szeretn\'e9nk haszn\'e1lni, kattintsunk r\'e1 a \'93Binary (OS independent)\'94 linkre. Let\'f6lt\'e9s ut\'e1n, t\'f6m\'f6r\'edts\'fck ki pl.: C:\\Program Files\\GeoServer k\'f6nyvt\'e1rba.\
+	b. JAVA_HOME k\'f6rnyezeti v\'e1ltoz\'f3 be\'e1ll\'edt\'e1sa, ha m\'e9g nincs be\'e1ll\'edtva. Ez megadja a JDK vagy JRE k\'f6nyvt\'e1r el\'e9r\'e9si \'fatvonal\'e1t, mint %JAVA_HOME%\\bin\\java.exe. \
+		- A k\'f6vetkez\uc0\u337  \'fatvonalon lehet el\'e9rni a k\'f6rnyezeti be\'e1ll\'edt\'e1sokat: Control Panel -> System -> Advanced -> Environment Variables\
+		- System variables r\'e9szben, klikkelj\'fcnk a New gombra.\
+		- Name: JAVA_HOME\
+		- Value: JDK vagy JRE k\'f6nyvt\'e1r abszol\'fat el\'e9r\'e9si \'fatvonala.\
+ 		- OK: h\'e1romszor.\
+	c. GEOSERVER_HOME k\'f6rnyezeti v\'e1ltoz\'f3 be\'e1ll\'edt\'e1sa.\
+		- A JAVA_HOME-hoz Hasonl\'f3 m\'f3don \'e1ll\'edtsuk be a GEOSERVER_HOME el\'e9r\'e9si \'fatvonal\'e1t is.\
+		- Valamint a GEOSERVER_DATA_DIR el\'e9r\'e9s\'e9t is, amely a GeoServer sz\'e1m\'e1ra sz\'fcks\'e9ges adat k\'f6nyvt\'e1r el\'e9r\'e9si \'fatvonal\'e1t adja meg. \'c1ltal\'e1ban %GEOSERVER_HOME%\\data_dir-ben \'e9rdemes l\'e9trehozni, ha fejleszt\'e9si c\'e9lokra haszn\'e1ljuk, k\'fcl\'f6nben egy k\'fcl\'f6n meghajt\'f3ra \'e9rdemes be\'e1ll\'edtani.\
+\
+\
+	d. Futtat\'e1shoz, GEOSERVER_HOME k\'f6nyvt\'e1rban tal\'e1lhat\'f3 startup.bat f\'e1jlt kell elind\'edtani, aminek hat\'e1s\'e1ra megjelenik egy konzolos ablak, ahol diagnosztikai \'e9s futtat\'e1si inform\'e1ci\'f3kat tal\'e1lhatunk. Ellen\uc0\u337 rz\'e9sk\'e9ppen navig\'e1ljunk el a http://localhost:8080/geoserver c\'edmre.\
+\
+  Le\'e1ll\'edt\'e1s:\
+    K\'e9tf\'e9lek\'e9ppen lehet le\'e1ll\'edtani:\
+      a. GEOSERVER_HOME k\'f6nyv\'e1rban tal\'e1lhat\'f3 shutdown.bat elind\'edt\'e1sa.\
+	  b. A startup.bat hat\'e1s\'e1ra elind\'edtott konzol ablak bez\'e1r\'e1sa.\
+\
+  Elt\'e1vol\'edt\'e1s:\
+	a. GeoServer le\'e1ll\'edt\'e1sa.\
+	b. GEOSERVER_HOME k\'f6nyvt\'e1r let\'f6rl\'e9se.\
+\
+2. WAR telep\'edt\'e9s\
+\
+  K\'fcl\'f6n\'e1ll\'f3 servlet alkalmaz\'e1sk\'e9nt telep\'edthet\uc0\u337  megl\'e9v\u337  servlet kont\'e9nerekbe, mint Apache Tomcat vagy Jetty. Els\u337 dleges k\'f6vetelm\'e9ny JAVA SE (Standard Edition). Oracle Java SE 6 verzi\'f3t\'f3l \'e9rdemes haszn\'e1lni, mivel GeoServer 2.2.x verzi\'f3 nem t\'e1mogatja JRE (Java futtat\'f3 k\'f6rnyezet) 5 verzi\'f3j\'e1t. JDK (Java fejleszt\u337 i keretrendszer) nem sz\'fcks\'e9ges GeoServer futtat\'e1s\'e1hoz.\
+\
+  Telep\'edt\'e9si l\'e9p\'e9sek:\
+	a. GeoServer oldalon megtal\'e1lhat\'f3 WAR let\'f6lt\'e9se.\
+    b. M\'e1soljuk \'e1t a geoserver.war \'e1llom\'e1nyt az alkalmaz\'e1s kont\'e9ner webapps alkalmaz\'e1sok k\'f6nyvt\'e1r\'e1ba.\
+    c. Az alkalmaz\'e1s szerver automatikusan kicsomagolja \'e9s telep\'edti az alkalmaz\'e1st.\
+    d. Aj\'e1nlott: \'fajra ind\'edtani az alkalmaz\'e1s szervert.\
+\
+  Futtat\'e1s:\
+	Az alkalmaz\'e1s sikeres telep\'edt\'e9se ut\'e1n, az alkalmaz\'e1s kont\'e9ner adminisztr\'e1ci\'f3s fel\'fclet\'e9n elkell ind\'edtani az alkalmaz\'e1st, ha az m\'e9g nincs elind\'edtva. \'c1ltal\'e1ban a k\'f6vetkez\uc0\u337  c\'edmen lehet el\'e9rni a GeoServer-t: http://alkalmazas_container_url/geoserver . Tomcat haszn\'e1lata eset\'e9n, a k\'f6vetkez\u337  c\'edmen \'e9rhet\u337  el lok\'e1lis g\'e9pr\u337 l: http://127.0.0.1:8080/geoserver.\
+\
+  Elt\'e1vol\'edt\'e1s:\
+	a. Alkalmaz\'e1s kont\'e9ner le\'e1ll\'edt\'e1sa.\
+	b. geoserver.war elt\'e1vol\'edt\'e1sa az webapps alkalmaz\'e1s k\'f6nyvt\'e1rb\'f3l.\
+	\
+\
+3. Linux telep\'edt\'e9s (Debian)\
+\
+El\uc0\u337 k\'e9sz\'fcletek:\
+  Figyelem: Root jogosults\'e1g sz\'fcks\'e9ges.\
+	a. Telep\'edts\'fck fel a Tomcat7 servlet kont\'e9nert a rendszerre: apt-get, synaptic vagy aptitude seg\'edts\'e9g\'e9vel.\
+	b. K\'f6vess\'fck a WAR telep\'edt\'e9si \'fatmutat\'f3j\'e1t.\
+	c. M\'e1soljuk \'e1t a WAR \'e1llom\'e1nyt /var/lib/tomcat7/webapps k\'f6nyvt\'e1rba.\
+	d. Ind\'edtsuk el a Tomcat7 servlet container-t.\
+	e. Ellen\uc0\u337 rz\'e9s: http://127.0.0.1:8080/geoserver\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+IV. GeoServer Data k\'f6nyvt\'e1r\
+\
+GeoServer \'93data directory\'94 adat k\'f6nyvt\'e1r konfigur\'e1ci\'f3s inform\'e1ci\'f3k t\'e1rol\'e1s\'e1ra szolg\'e1l, mint:\
+	- milyen t\'edpus\'fa adatok szolg\'e1ltat.\
+	- hol vannak az adatok elt\'e1rolva.\
+	- milyen szolg\'e1ltat\'e1sai vannak.\
+	- WMS illetve WFS szolg\'e1ltat\'e1sok defin\'edci\'f3ja.\
+Ezenk\'edv\'fcl tartalmaz sz\'e1mos alkalmaz\'e1sszint\uc0\u369  f\'e1jlokat is. \'dczemi felhaszn\'e1l\'e1s eset\'e9n, \'e9rdemes egy k\'fcls\u337  meghajt\'f3ra tenni az adat k\'f6nyvt\'e1rat egyszer\u369  friss\'edt\'e9s c\'e9lj\'e1b\'f3l. \
+\
+Fel\'e9p\'edt\'e9se:\
+	Mivel szinte minden konfigur\'e1ci\'f3 el\'e9rhet\uc0\u337  a webes fel\'fcleten kereszt\'fcl, azon bel\'fcl a Web Administration Interface r\'e9szn\'e9l, ez\'e9rt csak fel\'fcletesen fogjuk t\'e1rgyalni az adat k\'f6nyvt\'e1r fel\'e9p\'edt\'e9s\'e9t.\
+	Felhaszn\'e1l\'f3 \'e1ltal m\'f3dos\'edthat\'f3 k\'f6nyvt\'e1rak:\
+		- logs\
+		- palettes\
+		- templates\
+		- user-projection\
+		- www\
+-------------------------------------------------------------------------\
+<data_directory>/\
+\
+   global.xml\
+   logging.xml\
+   wms.xml\
+   wfs.xml\
+   wcs.xml\
+\
+   data/\
+   demo/\
+   geosearch/\
+   gwc/\
+   layergroups/\
+   logs/\
+   palettes/\
+   plugIns/\
+   security/\
+   styles/\
+   templates/\
+   user_projections/\
+   workspaces/\
+     |\
+     +- workspace dirs...\
+        |\
+        +- datastore dirs...\
+           |\
+           +- layer dirs...\
+   www/\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+	1. XML \'e1llom\'e1nyok (global, logging, wms, wfs, wcs)\
+Szolg\'e1ltat\'e1sokhoz \'e9s be\'e1ll\'edt\'e1sokhoz tartoz\'f3 glob\'e1lis le\'edr\'f3 adatokat adnak meg az aktu\'e1lis GeoServer szerverr\uc0\u337 l.\
+\
+\
+F\'e1jl	      Le\'edr\'e1s\
+global.xml	  \'c1ltal\'e1nos be\'e1ll\'edt\'e1sok szolg\'e1ltat\'e1sokra, mint karakterk\'f3dol\'e1s\
+logging.xml	  Loggol\'e1si be\'e1ll\'edt\'e1sok, mint log szint, logfile el\'e9r\'e9si \'fatvonala, csendes m\'f3d vagy konzolra is loggoljon.\
+wcs.xml	      WCS szolg\'e1ltat\'e1sra vonatkoz\'f3 be\'e1ll\'edt\'e1sok.\
+wfs.xml	      WFS szolg\'e1ltat\'e1sra vonatkoz\'f3 be\'e1ll\'edt\'e1sok.\
+wms.xml	      WMS szolg\'e1ltat\'e1sra vonatkoz\'f3 be\'e1ll\'edt\'e1sok.\
+\
+	2. Workspaces\
+Metaadatokat tartalmaz a kipublik\'e1lt t\'e9rk\'e9p r\'e9tegekr\uc0\u337 l. Minden l\'e9trehozott workspace-hez tartozik egy k\'f6nyv\'e1r, amelyben t\'e1rolja a hozz\'e1tartoz\'f3 adatokat, mint r\'e9tegek k\'f6nyvt\'e1rait, r\'e9tegenk\'e9nt egy layer.xml le\'edr\'f3 f\'e1jl, valamint coverage.xml vagy featuretype.xml, att\'f3l f\'fcgg, hogy az adott r\'e9teg raszteres vagy vektoros adatokat tartalmaz.\
+\
+	3. Data\
+Geospatial adatok t\'e1rol\'e1s\'e1ra alkalmas k\'f6nyvt\'e1r. \'c1ltal\'e1ban shapefile-ok, raszteres f\'e1jlok, ezenk\'edv\'fcl b\'e1rmilyen form\'e1tumok t\'e1rol\'e1s\'e1ra alkalmas. K\'f6nnyebb adatel\'e9r\'e9s c\'e9lj\'e1b\'f3l lett l\'e9trehozva a Data k\'f6nyvt\'e1r, mivel egy helyen vannak a t\'e9rk\'e9pes \'e1llom\'e1nyok.\
+Egy catalog.xml le\'edr\'f3 f\'e1jl tartalmazza inform\'e1ci\'f3kat:\
+--------------------------------------------------------------\
+<datastore id="foo_shapefile">\
+   <connectionParams>\
+     <parameter name="url" value="file://C:/gis_data/foo.shp" />\
+   </connectionParams>\
+</datastore>\
+--------------------------------------------------------------\
+Ha v\'e1ltozik a foo.shp f\'e1jl el\'e9r\'e9si \'fatvonala, akkor csak egy helyen megv\'e1ltoztatni a catalog.xml f\'e1jlban.\
+\
+	4. Demo\
+Ebben a k\'f6nyvt\'e1rban tal\'e1lhat\'f3ak a p\'e9lda, bemutat\'f3 alkalmaz\'e1sok.\
+\
+	5. Geosearch\
+Ebben a k\'f6nyvt\'e1rban tal\'e1lhat\'f3ak a KML f\'e1jlok r\'e9gi\'f3kra vonatkoz\'f3 adatok.\
+\
+	6. GWC\
+GeoWebCache \'e1ltal l\'e9trehozott cache f\'e1jlok itt t\'e1rol\'f3dnak.\
+\
+	7. Layersgroup\
+Konfigur\'e1ci\'f3s inform\'e1ci\'f3kat tartalmaz a megadott r\'e9tegcsoportokr\'f3l.\
+\
+	8. Logs\
+Ide ker\'fclnek a log f\'e1jlok.\
+\
+	9. Security\
+Bizonts\'e1gi be\'e1ll\'edt\'e1sokkal kapcsolatos konfigur\'e1ci\'f3s f\'e1jlokat tartalmaz a Security k\'f6nyvt\'e1r. Konfigur\'e1ci\'f3s f\'e1jlokban meghat\'e1rozhatjuk a szerepk\'f6r\'f6ket, szolg\'e1ltat\'e1sok, adatok hozz\'e1f\'e9r\'e9s\'e9t. Ezt r\'e9szletesebben fogjuk a k\'e9s\uc0\u337 bbiekben t\'e1rgyalni.\
+\
+	10. Styles\
+SLD (Styled Layer Descriptor) le\'edr\'f3 f\'e1jlokat tartalmaz. Minden egyes f\'e1jlhoz tartozik egy catalog.xml, amely a k\'f6vetkez\uc0\u337  k\'e9ppen n\'e9zhet ki:\
+--------------------------------------------------------------\
+<style id="point_style" file="default_point.sld"/>\
+--------------------------------------------------------------\
+\
+	11. User_projections\
+Ebben a k\'f6nyvt\'e1rban tal\'e1lhat\'f3 egy epsg.properties f\'e1jl, amelyben saj\'e1t vet\'fcleti rendszert tudunk megadni, a hivatalos EPSG adatb\'e1zisban tal\'e1lhat\'f3kon k\'edv\'fcl.\
+\
+	12. www\
+Az \'f6sszes f\'e1jl, amely a www k\'f6nyvt\'e1r alatt van, a http://<host:port>/geoserver/www c\'edmen el\'e9rhet\uc0\u337 . Hasznos lehet, ha statikus t\'e9rk\'e9p f\'e1jlokat szeretn\'e9nk szolg\'e1ltatni.\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+IV. Felhaszn\'e1l\'f3i fel\'fclet\
+  Alap\'e9rtelmezett link GeoServer-re http://localhost:8080/geoserver/web.\
+	1. Bejelentkez\'e9s\
+	Alap\'e9rtelmezett felhaszn\'e1l\'f3i n\'e9v: admin, jelsz\'f3: geoserver\
+	2. Szerver inform\'e1ci\'f3k\
+	3. Szolg\'e1ltat\'e1sok\
+	4. Adatforr\'e1sok\
+	5. R\'e9teg megtekint\uc0\u337 \
+\
+  1. Adminisztr\'e1ci\'f3 fel\'fclet\
+    a. Alap inform\'e1ci\'f3k\
+    Bel\'e9p\'e9s ut\'e1n a nyit\'f3 oldalon tal\'e1lhat\'f3 az alapinform\'e1ci\'f3k t\'e9mak\'f6r szerint csoportos\'edtva:\
+		Szerverrel kapcsolatos m\uc0\u369 veletek:\
+			- Szerver \'e1llapota\
+			- Glob\'e1lis bel\'e1ll\'edt\'e1sok\
+			- JAI (Java Advanced Imaging) be\'e1ll\'edt\'e1sok\
+			- Geoserver-r\uc0\u337 l alapinform\'e1ci\'f3k.\
+		Szolg\'e1ltat\'e1sok\
+			- WCS: Web content service\
+			- WFS: Web feature service\
+			- WMS: Web map service\
+		Adatok\
+			- Workspaces\
+			- Adatt\'e1rol\'f3k\
+			- R\'e9tegek\
+			- R\'e9teg csoportok\
+			- T\'e9rk\'e9p st\'edlusok\
+\
+	b. Szerver inform\'e1ci\'f3k\
+	Szerver \'e1llapot\'e1ra vonatkoz\'f3 inform\'e1ci\'f3k tartalmazz\'e1k a konfigur\'e1ci\'f3s param\'e9tereket valamint fut\'e1sidej\uc0\u369  inform\'e1ci\'f3kat.\
+	\'c1llapot le\'edr\'e1sok:\
+\
+	Lokkol\'e1sok:\
+		Megg\'e1tolja, hogy egy adott id\uc0\u337  pillanatban t\'f6bb felhaszn\'e1l\'f3 szerkeszthessen egy adott feature-t WFS szolg\'e1lgat\'e1son kereszt\'fcl. Adat z\'e1r\'e1s eset\'e9n, egy adott id\u337 ben, csak egy WFS szerkeszt\u337  f\'e9rhet hozz\'e1 az adathoz. Szerkeszt\'e9s r\'f6gz\'edt\'e9se ut\'e1n, adat z\'e1r\'e1s felold\'f3dik, azaz szerkeszthet\u337 v\'e9 v\'e1lik egy m\'e1sik felhaszn\'e1l\'f3 sz\'e1m\'e1ra. Null z\'e1r\'e1sok eset\'e9n, nincs z\'e1rol\'e1s a rendszerben, ellenkez\u337  esetben a \'93Free locks\'94-al (Z\'e1r\'e1sok felold\'e1sa) tudjuk felszabd\'edtani.\
+\
+	Kapcsolatok:\
+		\'c9rv\'e9nyes kapcsolatok sz\'e1ma a vektoros adatt\'e1rol\'f3khoz.\
+	\
+	Mem\'f3ria felhaszn\'e1l\'e1s:\
+		Geoserver \'e1ltal felhaszn\'e1lt mem\'f3ria ter\'fclet. \'93Free Memory\'94 (mem\'f3ria felszabad\'edt\'e1s) linkre kattintva \'fcr\'edtj\'fck ki azon mem\'f3ria ter\'fcletet, amelyet kijel\'f6lt a garbage collector.\
+\
+	JVM (Java virtual machine) verzi\'f3:\
+		JVM verzi\'f3 sz\'e1m azonos\'edt\'f3ja. P\'e9ld\'e1ul: 1.5.0\
+\
+	Nat\'edv Java Advanced Imaging keretrendszer:\
+		Geoserver \'e1ltal haszn\'e1lt Java advanced imaging a k\'e9pek kirajzol\'e1s\'e1ra valamint szerkeszt\'e9s\'e9re alkalmas keterendszer. Helyes telep\'edt\'e9s eset\'e9n, JAI keretrendszer felgyors\'edthatja a WCS valamint WMS szolg\'e1ltat\'e1sok sebess\'e9g\'e9t \'e9s hat\'e9konys\'e1g\'e1t.\
+\
+	JAI IMAGE IO:\
+		Raszteres adatok bet\'f6lt\'e9s\'e9re \'e9s k\'f3dol\'e1s\'e1ra alkalmas keretrendszer. Helyes telep\'edt\'e9s eset\'e9n, hasonl\'f3 m\'f3don mint Native JAI eset\'e9n hat\'e9konys\'e1gra \'e9s sebess\'e9gre vonatkoz\'f3 javul\'e1sokat \'e9rhet\'fcnk el.\
+\
+	JAI Maximum Memory:\
+		Az el\'e9rhet\uc0\u337  tile cache m\'e9ret\'e9t lehet megadni b\'e1jt-ban, p\'e9ld\'e1ul 333325056 b\'e1jt.\
+\
+	JAI Memory Usage:\
+		JAI \'e1ltal felhaszn\'e1lhat\'f3 fut\'e1s idej\uc0\u369  mem\'f3ria ig\'e9ny be\'e1ll\'edt\'e1sa tile cache szempontj\'e1b\'f3l elengedhetetlen be\'e1ll\'edt\'e1s. \'93Free Memory\'94 linkre kattintva ki\'fcr\'edthetj\'fck a tile cache-t a mem\'f3ri\'e1b\'f3l.\
+\
+	JAI Memory Threshold:\
+		Tile cache \'fcr\'edt\'e9s eset\'e9n mem\'f3ria felhaszn\'e1l\'e1si k\'fcsz\'f6b\'f6t ad meg sz\'e1zal\'e9kban, amely 0 \'e9s 100 k\'f6z\'f6tti \'e9rt\'e9ket vesz fel , pl. a tile cache 75%-\'e1t kell megtartani Free Memory eset\'e9n.\
+\
+	JAI Tile Threads:\
+		JAI \'e1ltal felhaszn\'e1lhat\'f3 sz\'e1lak sz\'e1ma, tile-ok kiszolg\'e1l\'e1sa \'e9rdek\'e9ben.\
+\
+	JAI Tile Thread Priority:\
+		Tile \'fctemez\uc0\u337  sz\'e1l els\u337 bbs\'e9gi \'e9rt\'e9ke, amely 1 \'e9s 10 k\'f6z\'f6tt vehet fel \'e9rt\'e9ket, valamint alap\'e9rtelmezett \'e9rt\'e9ke 5.\
+\
+	Update Sequence:\
+		Szerver konfigur\'e1ci\'f3s adatok v\'e1ltoz\'e1s\'e1ra vonatkoz\'f3 sz\'e1moss\'e1got hat\'e1roz meg.\
+\
+	Resource Cache:\
+		Geoserver nem cache-el adatokat, azonban adat t\'e1rol\'f3khoz tartoz\'f3 kapcsolatokat cache-el, mint feature type defin\'edci\'f3k, external graphics, bet\uc0\u369  m\'e9retre be\'e1ll\'edt\'e1sok \'e9s CRS defin\'edci\'f3kat. \'93Clear\'94 link kattint\'e1s hat\'e1s\'e1ra, ki\'fcr\'edti \'e9s felsz\'f3l\'edtja a Geoserver-t, hogy a k\'f6vetkez\u337  teend\u337 ket hajtsa v\'e9gre:\
+			- t\'f6ltse \'fajra az adat t\'e1rol\'f3kra vonatkoz\'f3 kapcsolatokat\
+			- olvassa \'fajra a raszteres \'e1llom\'e1nyokat\
+			- CRS defin\'edic\'f3k \'fajra t\'f6lt\'e9se a $\{GEOSERVER_DATA_DIR\}/user_projections/epsg.properties f\'e1jl alapj\'e1n.\
+\
+	Configuration and Catalog:\
+		Geoserver minden konfigur\'e1ci\'f3s adat\'e1t mem\'f3ri\'e1ban t\'e1rol. Ez\'e9rt ha b\'e1rmilyen okb\'f3l megv\'e1ltozott a konfigur\'e1ci\'f3s \'e1llom\'e1ny, \'93Reload\'94 linkre kattintva, r\'e1k\'e9nyszer\'edti a Geoserver-t, hogy az \'f6sszes konfigur\'e1ci\'f3s be\'e1ll\'edt\'e1sait \'fajra t\'f6ltse be a k\'f6nyvt\'e1r strukt\'far\'e1b\'f3l.\
+\
+	c. R\'e9teg inform\'e1ci\'f3k\
+Minden egy r\'e9teg tartalmazza a:\
+	- t\'edpus: raszteres, vektoros, r\'e9teg csoport.\
+	- n\'e9v: workspace n\'e9v : R\'e9teg n\'e9v form\'e1tumban van.\
+	- c\'edm: r\'f6vid le\'edr\'e1st tartalmaz az adott r\'e9tegr\uc0\u337 l.\
+	- megtekint\'e9sre el\'e9rhet\uc0\u337  form\'e1tumok (GML, JSON, \'85)\
+Megtekint\'e9sre el\'e9rhet\uc0\u337  form\'e1tumok:\
+	1. Openlayers, KML vagy GML form\'e1tumban lehet megtekinteni a r\'e9teget, ezenk\'edv\'fcl m\'e9g sz\'e1mos form\'e1tumot is t\'e1mogat mint:\
+		- AtomPub\
+		- GIF\
+		- GeoRss\
+		- JPEG\
+		- PDF\
+		- PNG\
+		- SVG\
+		- TIFF\
+	Csakis vektoros adatokra van WFS szolg\'e1ltat\'e1s. Valamint csak vektoros adatokra t\'e1mogatott a GML, CSV, GML3, GeoJSON \'e9s Shapefile export\'e1l\'e1s lehet\uc0\u337 s\'e9g. A kimenti f\'e1jlokat h\'e1rom kateg\'f3ri\'e1ba soroljuk: k\'e9pi, text \'e9s adat.\
+	2. K\'e9pi form\'e1tumok\
+\
+\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 All image outputs can be initiated from a WMS getMap request on either a raster, vector or coverage data. WMS are methods that allows visual display of spatial data without necessarily providing access to the features that comprise those data.\
+\
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat1 \tamarb300 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth1560\clftsWidth3 \clheight20 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth12940\clftsWidth3 \clheight20 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl320\slleading30\qr
+\cf2 Form\'e1tum\cell 
+\pard\intbl\itap1\pardeftab720\sl320\slleading30\qr
+\cf2 Le\'edr\'e1s\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat1 \tamarb300 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth1560\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth12940\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 KML\cell 
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 KML (Keyhole Markup Language) egy XML alap\'fa le\'edr\'f3 nyelv, f\'f6ldrajzi adatok t\'e1rol\'e1s\'e1ra alkalis. Megtekint\'e9sre a Google Earth vary Google Maps webes alkalmaz\'e1sok egyar\'e1nt  alkalmasak. GeoServer  KML f\'e1jlokat KMZ form\'e1tumban bocs\'e1tja rendelkez\'e9sre, amely nem m\'e1st mint egy t\'f6m\'f6r\'edtett KML.\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat1 \tamarb300 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth1560\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth12940\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 JPEG\cell 
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 WMS raszteres form\'e1tum. JPEG egy t\'f6m\'f6r\'edtett grafikus f\'e1jl form\'e1tum, amely nem vesztes\'e9g mentes t\'f6m\'f6r\'edt\'e9s, ez\'e9rt pontos raszteres t\'e9rk\'e9pek kiszolg\'e1l\'e1s\'e1ra nem alkalmas, csak megjelen\'edt\'e9sre haszn\'e1lhat\'f3.\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat1 \tamarb300 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth1560\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth12940\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 GIF\cell 
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 WMS raszteres form\'e1tum. Bitmap k\'e9pi form\'e1tum, kev\'e9s sz\'ednnel rendelkez\uc0\u337  t\'e9rk\'e9pek megjelen\'edt\'e9s\'e9re szolg\'e1l. Kev\'e9sb\'e9 vesztes\'e9ges t\'f6m\'f6r\'edt\'e9s, ez\'e9rt olyan ter\'fclet\u369  t\'e9rk\'e9pekre haszn\'e1latos, ahol kev\'e9s sz\'ednt kell megjelen\'edteni.8-bites sz\'edn paletta vagy 256 sz\'ednt k\'e9pes t\'e1rolni.\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat1 \tamarb300 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth1560\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth12940\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 SVG\cell 
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 WMS vektoros form\'e1tum. SVG egy xml le\'edr\'f3 nyelvre alap\'fal\'f3 vektoros form\'e1tum k\'e9t dimenzi\'f3s grafikai objektumok t\'e1rol\'e1s\'e1ra.\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat1 \tamarb300 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth1560\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth12940\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 TIFF\cell 
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 WMS raszteres form\'e1tum. Hordozhat\'f3, t\'f6bb adat t\'e1rol\'e1s\'e1ra alkalmas egy f\'e1jlon bel\'fcl. GeoTIFF form\'e1tum kieg\'e9sz\'edti a TIFF form\'e1tumot f\'f6ldrajzi adatokkal.\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat1 \tamarb300 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth1560\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth12940\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 PNG\cell 
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 WMS raszteres form\'e1tum. PNG (Portable Network Graphics) a nev\'e9b\uc0\u337 l adod\'f3an webes megjelen\'edt\'e9sre alkalmas. 16 milli\'f3 sz\'ednt t\'e1mogat.\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat1 \tamarb300 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth1560\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth12940\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 OpenLayers\cell 
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 Javascript k\'f6nyvt\'e1r, amely alkalmas vektoros valamint raszteres t\'e9rk\'e9pek megjelen\'edt\'e9s\'e9re, WMS szolg\'e1ltat\'e1s ig\'e9nybev\'e9tel\'e9vel. B\'f6ng\'e9sz\uc0\u337  f\'fcggetlen.\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat1 \tamarb300 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth1560\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth12940\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 PDF\cell 
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 PDF (Portable Document Format) 2D dokumentumok, text, font m\'e9ret, raszteres t\'e9rk\'e9pek \'e9s 2D vektor grafikus objektumok megjelen\'edt\'e9s\'e9re alkalmas.\cell \lastrow\row
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\slleading30\pardirnatural
+\cf2 \
+	3. Text form\'e1tumok\
+\
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat1 \tamarb300 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth1500\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth13020\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 Format\cell 
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 Description\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat1 \tamarb300 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth1500\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth13020\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 AtomPub\cell 
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 WMS text adat form\'e1tum. XML le\'edr\'f3 nyelvre alapul\'f3 form\'e1tum. AtomPub (Atom publishing protocol) Webes protokoll, HTTP URI felhaszn\'e1l\'e1s\'e1val XML adatszolg\'e1ltat\'e1sra alkalmas. \cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat1 \tamarb300 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth1500\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth13020\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 GeoRss\cell 
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 Vektoros adatok lek\'e9r\'e9sek XML form\'e1tumban t\'f6rt\'e9n\uc0\u337  v\'e1lasz form\'e1tuma.\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat1 \tamarb300 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth1500\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth13020\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 GeoJSON\cell 
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 Javascript-re alapul\'f3 adatcsere form\'e1tum. B\'f6ng\'e9sz\uc0\u337  alap\'fa alkalmaz\'e1sok \'e1ltal k\'f6nnyen feldolgozhat\'f3 adatcsere form\'e1ltum, mivel JavaScript alapb\'f3l t\'e1mogatja ezen objektumok feldolgoz\'e1s\'e1t. GeoJSON egy f\'f6ldrajzi attrib\'fatumokkal kib\u337 v\'edt\'e9se a JSON form\'e1tumnak.\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat1 \tamarb300 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth1500\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth13020\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 CSV\cell 
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 Megszokott vessz\uc0\u337 vel elv\'e1lasztott adat form\'e1tum.\cell \lastrow\row
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\slleading30\pardirnatural
+\cf2 \
+	4. WFS form\'e1tumok\
+\
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat1 \tamarb300 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth1400\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth13100\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 Format\cell 
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 Description\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat1 \tamarb300 \trbrdrl\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth1400\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth13100\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 GML2/3\cell 
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 GM (Geography Markup Language) XML alap\'fa, Open Geospatial Consortium (OGC) \'e1ltal el\uc0\u337 terjesztett adatcsere form\'e1tum f\'f6ldrajzi objektumok t\'e1rol\'e1s\'e1ra.Alap\'e9rtelmezett form\'e1tum GML2, azonban GML3 form\'e1tumban is el\'e9rhet\u337  az "All Formats" leny\'edl\'f3 men\'fcben.\cell \row
+
+\itap1\trowd \taflags0 \trgaph108\trleft-108 \trcbpat1 \tamarb300 \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt\clvertalbase \clshdrawnil \clwWidth1400\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx4320
+\clvertalt\clvertalbase \clshdrawnil \clwWidth13100\clftsWidth3 \clmart10 \clmarl10 \clmarb10 \clmarr10 \clbrdrt\brdrnil \clbrdrl\brdrnil \clbrdrb\brdrs\brdrw20\brdrcf3 \clbrdrr\brdrnil \clpadt20 \clpadl0 \clpadb20 \clpadr160 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 Shapefile\cell 
+\pard\intbl\itap1\pardeftab720\sl320\slleading30
+\cf2 ESRI Shapefile a legelterjedtebb vektoros adat form\'e1tum f\'f6ldrajzi objektumok t\'e1rol\'e1s\'e1ra. GeoServer t\'f6m\'f6r\'edtett \'e1llom\'e1nyban adja vissza, amely a k\'f6vetkez\uc0\u337  kiterjeszt\'e9s\u369  f\'e1jlokat tartalmaz: .cst, .dbf, .prg, .shp, .shx.\cell \lastrow\row
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\slleading30\pardirnatural
+\cf2 \
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+	d. Adat k\'f6nyvt\'e1r inform\'e1ci\'f3k\
+\
+Adat k\'f6nyvt\'e1r az egyik legfontosabb r\'e9sze a Webes Adminisztr\'e1ci\'f3 fel\'fcleteknek.\
+\pard\pardeftab720\sl320\slleading30
+\cf2 \
+	1. Workspace - n\'e9vterek kezel\'e9se\
+N\'e9vt\'e9rhez hasonl\'f3an m\uc0\u369 k\'f6dik, amely hozz\'e1 seg\'edt adataink egys\'e9ges, strukt\'far\'e1lt t\'e1rol\'e1s\'e1hoz. GeoServer-ben egy workspace-ben, \'e1ltal\'e1ban t\'f6bb r\'e9teg csoport tal\'e1lhat\'f3, amelyek logikailag \'f6sszef\'fcgg\u337 ek, ennek k\'f6sz\'f6nhet\u337 en, azonos nev\u369  r\'e9tegek \'fctk\'f6z\'e9s mentesen t\'e1rolhat\'f3ak, ameddig k\'fcl\'f6n workspace-hez tartoznak, pl.: wrk1:megyek \'e9s wrk2:megyek. Egy r\'e9teget a k\'f6vetkez\u337  strukt\'fara alapj\'e1n fogjuk l\'e1tni: workspace_n\'e9v:store_n\'e9v\
+\
+\
+\pard\pardeftab720\slleading30\sa300
+\cf2 Workspace m\'f3dos\'edt\'e1sa\
+Workspace nev\'e9re kattintva tekinthetj\'fck meg a hozz\'e1 tartoz\'f3 inform\'e1ci\'f3kat, amely a k\'f6vetkez\uc0\u337  adatokb\'f3l \'e1ll:\
+	a. N\'e9v\
+		- Nem m\'f3dos\'edthat\'f3\
+		- Maximum 10 hossz\'fas\'e1g\'fa karakter sorozatot tartalmazhat.\
+		- Nem tartalmazhat sz\'fcnetet.\
+	b. N\'e9vt\'e9r URI - egys\'e9ges er\uc0\u337 forr\'e1s azonos\'edt\'f3.\
+		- M\'f3dos\'edthat\'f3 mez\uc0\u337 \
+		- Hasonl\'f3 mint az URL, azzal a megk\'f6t\'e9ssel, hogy egy l\'e9tez\uc0\u337  web c\'edmre kell hogy mutatsson. pl.: http://www.nev.hu/workspace_azonosito\
+\
+Workspace hozz\'e1ad\'e1s vagy t\'f6rl\'e9s.\
+\pard\pardeftab720\sl320\slleading30
+\cf2 Plusz \'e9s minusz ikonnal jelzett linkekre kattintva hozz\'e1adhatunk illetve elt\'e1vol\'edthatunk workspace-eket. Hasonl\'f3an egy workspace m\'f3dos\'edt\'e1s\'e1n\'e1l, l\'e9trehoz\'e1sakor megkell adnunk a nev\'e9t \'e9s URI c\'edm\'e9t, a fent eml\'edtett megk\'f6t\'e9sekkel. Minusz linkre kattintva elt\'e1vol\'edthatunk egy workspace, azonban m\'e9g miel\uc0\u337 tt v\'e9gleg elt\'e1vol\'edtan\'e1 a rendszerb\u337 l, egy meger\u337 s\'edt\'e9s ablak fog megjelenni.\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\pard\pardeftab720\sl480\slleading30\sa140
+\cf2 	2. Stores - adatt\'e1rak kezel\'e9se\
+Egy adatt\'e1r egy\'e9rtelm\uc0\u369  kapcsolatot defini\'e1l raszteres vagy vektoros adat\'e1llom\'e1nyainkhoz. Egy adatt\'e1r tartalmazhat egy vagy t\'f6bb f\'e1ljt, mint adatb\'e1zis t\'e1bl\'e1t, shapefile-t vagy mapp\'e1t, ahol raszteres \'e1llom\'e1nyok vannak. Egy adatt\'e1r l\'e9trehoz\'e1s\'e1hoz sz\'fcks\'e9ges tudnunk a kapcsolati inform\'e1ci\'f3t, ezenk\'edv\'fcl, aj\'e1nlott regisztr\'e1lni, m\'e9g miel\u337 tt bet\'f6lten\'e9nk.\
+Raszteres adatokra vonatkoz\'f3an az adatt\'e1r egy f\'e1jl. Vektoros adatokra az adatt\'e1r lehet \
+	- Vektoros f\'e1jl\
+	- Vektoros adat adatb\'e1zisban.\
+	-  Szerveren lev\uc0\u337  vektoros \'e1llom\'e1ny.\
+\pard\pardeftab720\sl320\slleading30
+\cf2 \
+\
+\pard\pardeftab720\slleading30\sa300
+\cf2 Adatt\'e1r szerkeszt\'e9se\
+Adatt\'e1r nev\'e9re kattintva tekinthetj\'fck meg a hozz\'e1 tartoz\'f3 inform\'e1ci\'f3kat, mint:\
+	- Workspace n\'e9v\
+	- Adat forr\'e1s neve\
+	- R\'f6vid le\'edr\'e1s\
+	- Regisztr\'e1ci\'f3s \'e1llapota\
+	- Kapcsolati inform\'e1ci\'f3: v\'e1ltoz\'f3, att\'f3l f\'fcgg, hogy vektoros vagy raszteres adattal dolgozunk.\
+\pard\pardeftab720\sl320\slleading30
+\cf2 \
+\pard\pardeftab720\slleading30\sa300
+\cf2 Adatt\'e1r hozz\'e1ad\'e1sa\
+Plusz illetve minusz gombokra kattintva, hozz\'e1adhatunk vagy elt\'e1vol\'edthatunk adatt\'e1rat. Hozz\'e1ad\'e1s eset\'e9n csoportos\'edtva van, hogy mely adatforr\'e1sokat t\'e1mogat GeoServer. Vektoros adatok eset\'e9n:\
+	- Vektoros adat forr\'e1sokat tartalmaz\'f3 mappa.\
+	- PostGIS adatb\'e1zis.\
+	- Java Property f\'e1jl.\
+	- ESRI Shapefile.\
+	- WFS Szerver el\'e9r\'e9si c\'edme.\
+Raszteres adatok eset\'e9n:\
+	- ArcGrid form\'e1tum\
+	- GeoTIFF\
+	- WorldImage\
+	- GTopo30\
+	- ImageMosaic\
+Szerkeszt\'e9sbent eml\'edtett param\'e9tereket megkell adni.\
+\
+Adatt\'e1r elt\'e1vol\'edt\'e1sa\
+\pard\pardeftab720\sl320\slleading30
+\cf2 Miut\'e1n kipip\'e1ltuk azon adatt\'e1rakat, amelyeket elszeretn\'e9nk t\'e1vol\'edtani, a minusz gombra kattintva tudjuk \uc0\u337 ket elt\'e1vol\'edtani. Egy meger\u337 s\'edt\'e9s ablak fog megjelenni.\
+\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\pard\pardeftab720\sl480\slleading30\sa140
+\cf2 	3. Layers - R\'e9tegek\
+\pard\pardeftab720\sl320\slleading30
+\cf2 Egy r\'e9teg tartalmazhat vektoros vagy raszteres f\'f6ldrajzi adatcsoportokat. Minden egyes r\'e9teg egy\'e9rtelm\uc0\u369 en egy adatt\'e1rhoz tartozik. A k\'f6vetkez\u337  m\u369 veleteket lehet v\'e9grehajtani:\
+	- R\'e9teg inform\'e1ci\'f3k megtekint\'e9se.\
+	- Megl\'e9v\uc0\u337  r\'e9teg adatainak m\'f3dos\'edt\'e1sa.\
+	- \'daj r\'e9teg hozz\'e1ad\'e1sa.\
+	- Megl\'e9v\uc0\u337  r\'e9teg elt\'e1vol\'edt\'e1sa, el\'f6tte inaktiv\'e1lni (unregister) kell a r\'e9teget.\
+\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 R\'e9teg t\'edpusok\
+K\'e9t f\'e9le r\'e9teg t\'edpus van: vektoros (feature) \'e9s raszteres (grid). Vektor feature t\'edpusokat (x,y) koordin\'e1ta p\'e1rosokb\'f3l alkotott \'fatvonalal (path) le\'edrhat\'f3. Raszteres r\'e9tegek cell\'e1k alapj\'e1n t\'e1rolja a f\'f6ld felsz\'ednen tal\'e1lhat\'f3 feature-ket. Minden egyes cella inform\'e1ci\'f3t t\'e1rol, a hasonl\'f3 inform\'e1ci\'f3val b\'edr\'f3 cell\'e1k egy adott featur\
+e-t defini\'e1lnak.\
+R\'e9teg M\'f3dos\'edt\'e1sa\
+	a. Data\
+\pard\pardeftab720\sl320\slleading30
+\cf2 R\'e9teg nev\'e9re kattintva, bet\'f6lt\uc0\u337 dik a r\'e9teghez kapcsol\'f3d\'f3 inform\'e1ci\'f3k. A \'93Data\'94 adat f\'fclre kattintva, megjelennek az alapinform\'e1ci\'f3k, mint\
+	- N\'e9v: Azonos\'edtja a r\'e9teget, WMS szolg\'e1latat\'e1sokn\'e1l a n\'e9v alapj\'e1n tudja, hogy melyik r\'e9tegr\uc0\u337 l van sz\'f3.\
+	- Fel\'edrat: R\'f6vid le\'edr\'e1s az adott r\'e9tegr\uc0\u337 l.\
+	- Kivonat: Hosszabb le\'edr\'e1s az adott r\'e9tegr\uc0\u337 l.\
+	- Kulcsszavak list\'e1ja: Katal\'f3gus keres\'e9sn\'e9l megk\'f6nny\'edti a dolgunkat, ha az adott r\'e9tegr\uc0\u337 l egy\'e9rtelm\u369 en meghat\'e1rozhat\'f3 kulcssz\'f3 van hozz\'e1rendelve.\
+	- \'daj kulcssz\'f3 hozz\'e1ad\'e1sa\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 \
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+Vet\'fcleti rendszerek\
+A vet\'fcleti rendszerek (Coordinate Reference System - CRS) seg\'edts\'e9g\'e9vel tudjuk meghat\'e1rozni egy adott t\'e9rbeli pont, mely val\'f3s f\'f6ldrajzi fel\'fcleten fekv\uc0\u337  ponthoz tartozik. CRS rendszerek \'e1ltal\'e1nosabb modelhez tartoznak: Spatial Reference Systems - SRS. Egy adott r\'e9teghez, k\'f6telez\u337 en megkell adni annak vet\'fcleti rendszer\'e9t, amelyet GeoServer arra haszn\'e1lja, hogy kisz\'e1m\'edtsa, a befoglal\'f3 n\'e9gyzet valamint a projekci\'f3s m\u369 veleteket, pl. WMS \'e9s WFS szolg\'e1ltat\'e1sok eset\'e9n elengedhetetlen.\
+\pard\pardeftab720\sl320\slleading30\sa360
+\cf2 Vet\'fcleti renszer megad\'e1sa a k\'f6vetkez\uc0\u337  panelel t\'f6rt\'e9nik, ahol:\
+	- Native SRS: az adott r\'e9teg metainform\'e1ci\'f3 alapj\'e1n meghat\'e1rozott vet\'fcleti rendszer.\
+	- Declared SRS: GeoServer \'e1ltal aj\'e1nlott SRS.\
+	- SRS Handling: Meghat\'e1rozzuk, hogy melyik SRS-t kell haszn\'e1lni, abban az esetben ha nem egyeznek meg a Native \'e9s Declared SRS adatok.\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 Hat\'e1rol\'f3keret - Bounding Box\
+\pard\pardeftab720\sl320\slleading30\sa360
+\cf2 Hat\'e1rol\'f3 keret adja, meg az adott r\'e9teg kiterjed\'e9s\'e9t. Alap\'e9rtelmezett hat\'e1rol\'f3keret Native SRS alapj\'e1n kisz\'e1m\'edthat\'f3 r\'e9teg adatok felhaszn\'e1l\'e1s\'e1val.\
+\pard\pardeftab720\sl320\slleading30
+\cf2 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\pard\pardeftab720\sl480\slleading30\sa140
+\cf2 	6. Styles\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 Styles are the method of rendering geospatial data. Styles for GeoServer are written in Styled Layer Descriptor (SLD), a subset of XML. Please see the section on {\field{\*\fldinst{HYPERLINK "http://docs.geoserver.org/stable/en/user/styling/index.html#styling"}}{\fldrslt Styling}} for more information on working with styles.\
+On this page, you can register or create a new style, edit an existing style, or delete remove a style.\
+\pard\pardeftab720\slleading30\sa300
+\cf2 Edit Styles\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 The Style Editor page presents options for configuring a style\'92s name and code. SLD names are specified at the top in the name field. Typing or pasting of SLD code can be done in one of two modes. The first mode is an embedded {\field{\*\fldinst{HYPERLINK "http://www.cdolivet.com/index.php?page=editArea"}}{\fldrslt \ul \ulc4 EditArea}} a rich editor. The second mode alternate mode is an unformatted text editor. Check the Toggle Editor to switch between modes.\
+\pard\pardeftab720\sl320\slleading30
+\cf2 \
+The rich editor is designed for text formatting, search and replace, line numbering, and real-time syntax highlighting. You can also switch view to full-screen mode for a larger editing area.\
+\
+- search\
+\'85.\
+\
+\pard\pardeftab720\slleading30\sa300
+\cf2 Add a Style\
+\pard\pardeftab720\sl320\slleading30
+\cf2 \
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 To confirm that the SLD code is fully compliant with the SLD schema, press the Validate button. A message box will confirm whether the style has validation errors.\
+\pard\pardeftab720\sl320\slleading30
+\cf2 Note GeoServer will sometimes be able to render styles that fail validation, but this is not receommended.\
+\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 The buttons for adding and removing a style can be found at the top of the Styles page.\
+\pard\pardeftab720\sl320\slleading30
+\cf2 To add a new layer group, select the Add a new style button. You will be redirected to an editor page. Enter a name for the style. The editor page provides two options for submitting an SLD. You can paste the SLD directly into the editor, or you can select and upload a local file that contains the SLD.\
+\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 Once a style is successfully submitted, you will be redirected to the main Styles page where the style will be listed.\
+\pard\pardeftab720\sl320\slleading30\sa280
+\cf2 Remove a Style\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 In order to remove a style, click on the check box next to the style. Multiple layer groups can be checked for batch removal. Click theRemove selected style(s) link at the top of the page. You will be asked to confirm or cancel the deletion. Clicking OK removes the layer group.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\slleading30\pardirnatural
+\cf2 	e. Szolg\'e1ltat\'e1sok\
+\pard\pardeftab720\sl480\slleading30\sa140
+\cf2 Services\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 GeoServer serves data using standard protocols established by the {\field{\*\fldinst{HYPERLINK "http://www.opengeospatial.org/"}}{\fldrslt \ul \ulc4 Open Geospatial Consortium}} (OGC). Web Coverage Service (WCS) allows for requests of coverage data (rasters); Web Feature Service (WFS) allows for requests of geographical feature data (vectors); and Web Map Service (WMS) allows for requests of images generated from geographical data.\
+This section of the Web Administration Interface allows for the configuration of these services as used by GeoServer.\
+\pard\pardeftab720\sl480\slleading30\sa140
+\cf2 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+	1. WFS\
+a. Bevezet\'e9s\
+OGC \'e1ltal elfogadott szabv\'e1ny nyers vektor adatok lek\'e9r\'e9s\'e9re. Web Feature Service verzi\'f3k: 1.0  \'e9s 1.1. WFS seg\'edts\'e9g\'e9vel lek\'e9rdez\'e9seket tudunk k\'e9rni a GeoServer-t\uc0\u337 l, valamint komplexebb vektoros m\u369 veleteket is v\'e9gre tudunk hajtani vektoros adatokon, mint m\'f3dos\'edt\'e1s \'e9s z\'e1rol\'e1s.\
+GeoServer mind az 1.0 \'e9s 1.1 verzi\'f3t teljes implement\'e1ci\'f3j\'e1t szolg\'e1ltatja. A fent eml\'edtett egyszer\uc0\u369 bb lek\'e9rdez\u337  \'e9s komplexebb m\u369 veleteket t\'e1mogat mint:\
+	- GetCapabilities\
+	- DescribeFeatureType\
+	- GetFeature\
+	- Transaction\
+	- LockFeature\
+	- GetGMLObject\
+Ezenk\'edv\'fcl, \'e9rdemes megeml\'edteni, hogy ezen szolg\'e1ltat\'e1sok egybe vannak \'e9p\'edtve a GeoServer biztons\'e1gi rendszer\'e9vel, hogy tov\'e1bbi adathozz\'e1f\'e9r\'e9si szab\'e1lyokat tudjunk defini\'e1lni k\'fcl\'f6nb\'f6z\uc0\u337  vektoros adatcsoportokra. WFS k\'fcl\'f6nb\'f6z\u337  kimeneti adatform\'e1tumokat is t\'e1mogat, mint GML, GeoJSON, stb..\
+\
+b. WFS verzi\'f3k \'f6sszehasonl\'edt\'e1sa\
+F\uc0\u337 bb k\'fcl\'f6nbs\'e9gek:\
+	WFS 1.1.0 alap\'e9rtelmez\'e9sben GML3 verzi\'f3j\'fa .gml f\'e1jl ad vissza kimeneti adatk\'e9nt, mik\'f6zben 1.1.0 verzi\'f3 alatt GML2 volt az alap\'e9rtelmezett kimeneti adat.  GML2 \'e9s GML3 k\'f6zti k\'fcl\'f6nbs\'e9get az al\'e1bbi linkr\uc0\u337 l elindulva lehet t\'f6bbet olvasni: http://www.opengeospatial.org/standards/gml\
+	WFS 1.1.0 alatt, SRS megad\'e1sa: urn:x-ogc:def:crs:EPSG:XXXX, mik\'f6zben WFS 1.0.0 alatt, SRS megad\'e1sa: http://www.opengis.net/gml/srs/epsg.xml#XXXX m\'f3don t\'f6rt\'e9nik.\
+	WFS 1.1.0 adatok fut\'e1sidej\uc0\u369  vet\'fcleti rendszer konvert\'e1l\'e1st, amely lehet\u337 v\'e9 teszi, hogy m\'e1s vet\'fcleti rendszerben kapjuk meg az adatokat, mint az eredeti adat.\
+\
+c. Koordin\'e1t\'e1k\
+	WFS szerverek longitude/latitude (x/y) sorrendben adj\'e1k vissza a f\'f6ldrajzi koordin\'e1t\'e1kat, amely a legjobban elterjedt m\'f3dja az adatszolg\'e1ltat\'e1snak, mint pl. ESRI shapefile-ok is ilyen a form\'e1tumban t\'e1rolj\'e1k a f\'f6ldrajzi koordin\'e1t\'e1kat. Azonban a kartogr\'e1fiai rendszerek ford\'edtva az alap\'e9rtelmezett sorrend pont az ellenkez\uc0\u337 je, azaz latitude/longitude (y/x), ez\'e9rt WFS 1.1.0-ban, m\'e1r ebben a form\'e1tumban adj\'e1k vissza a f\'f6ldrajzi koordin\'e1t\'e1kat.\
+\
+d. M\uc0\u369 veletek\
+WFS a k\'f6vetkez\uc0\u337  m\u369 veleteket hajt v\'e9gre:\
+\
+	- GetCapabilities: GeoServer tulajdons\'e1gai valamint t\'e1mogatott WFS m\uc0\u369 veletek \'e9s azoknak param\'e9tereit adja vissza.\
+		WFS szerver \'e1ltal szolg\'e1ltatott m\uc0\u369 veletek list\'e1j\'e1t kapjuk vissza. P\'e9ld\'e1ul a k\'f6vetkez\u337 k\'e9ppen url-en lehet el\'e9rni: http://www.example.com/wfs?service=wfs&version=1.1.0&request=GetCapabilities\
+\
+	- DescribeFeatureType: Aktu\'e1lis adat halmazra attrib\'fatumaira vonatkoz\'f3 inform\'e1ci\'f3kat tartalmaz.\
+		Miel\'f6tt lek\'e9rn\'e9k a val\'f3s adatot egy featuretype-r\'f3l, el\'f6tte lek\'e9rj\'fck lek\'e9rj\'fck a DescribeFeatureType-ra vonatkoz\'f3 inform\'e1ci\'f3kat, mint attrib\'fatumokat tartalmaz \'e9s h\'e1ny featuretype-b\uc0\u337 l \'e1ll. P\'e9ld\'e1ul a k\'f6vetkez\u337 k\'e9ppen tudjuk lek\'e9rni:\
+		http://www.example.com/wfs&service=wfs&version=1.1.0&request=DescribeFeatureType&typeName=namespace:featuretype\
+\
+	- GetFeature: Geometria \'e9s attrib\'fatum adatokat szolg\'e1ltat a lek\'e9rdezett t\'e9rbeli objektumr\'f3l.\
+		Egy konkr\'e9t featuretype adatainak lek\'e9r\'e9se.  Mivel nagy a val\'f3sz\'edn\uc0\u369 s\'e9ge, hogy nagy adathalmazt fogunk visszakapni v\'e1laszk\'e9nt, ez\'e9rt nem aj\'e1nlott b\'f6ng\'e9sz\u337 ben lek\'e9rni. P\'e9lda:\
+http://www.example.com/wfs?service=wfs&version=1.1.0&request=GetFeature&typeName=namespace:featuretype&featureID=feature\
+	LockFeature: Az adott objektum z\'e1rol\'e1sa tov\'e1bbi szerkeszt\'e9si m\uc0\u369 veletek el\u337 l.\
+		\'c1ltal\'e1nos haszn\'e1latban z\'e1rol\'e1ssal egy\'fctt t\'e1rsul a tranzakci\'f3, mivel egy tranzakci\'f3 alatt, az adott feature-\'f6k z\'e1rol\'f3dnak. Azonban a gyakorlatban kev\'e9s kliens t\'e1mogatja a LockFeature m\uc0\u369 veletet.\
+	Transaction: L\'e9trehoz\'e1s, szerkeszt\'e9s, t\'f6rl\'e9s m\uc0\u369 veletek hat\'e1s\'e1ra t\'f6rt\'e9n\u337  adat elment\'e9se.\
+		Egy tranzakci\'f3 alatt hozz\'e1adhatunk, m\'f3dos\'edthatunk, valamint t\'f6r\'f6lhet\'fcnk feature-\'f6ket. Mivel egy tranzakci\'f3 mag\'e1ban foglalja az ACID modell tulajdons\'e1gait, ez\'e9rt sikertelen m\uc0\u369 velet eset\'e9n nem ker\'fclhet semmilyen m\'f3don az adatb\'e1zisba hib\'e1s adat. WFS specifik\'e1ci\'f3j\'e1ban t\'f6bb le\'edr\'e1s tal\'e1lhat\'f3 a tranzakci\'f3 tulajdons\'e1gair\'f3l. \
+	GetGMLObject: XLinks felhaszn\'e1l\'e1s\'e1val objektum lek\'e9r\'e9se annak ID-ja alapj\'e1n.\
+	WFS-T: Tranzakci\'f3t t\'e1mogat\'f3 WFS szerver.\
+\
+e. WFS kimeneti form\'e1tumok\
+WFS feature k\'e9r\'e9s  eset\'e9n meghat\'e1rozhatjuk, hogy milyen kimeneti form\'e1tumban szeretn\'e9k a v\'e1laszt visszakapni, amely a k\'f6vetkez\uc0\u337  form\'e1tumok lehetnek:\
+	- GML2: outputFormat=GML2 (alap\'e9rtelmezett WFS 1.0.0-ban)\
+	- GML3: outputFormat=GML3 (alap\'e9rtelmezett WFS 1.1.0-ban)\
+	- ESRI Shapefile: outputFormat=shape-zip\
+	- JSON: outputFormat=json\
+	- CSV: outputFormat=csv\
+GeoServer 2.0.3 verzi\'f3 \'f3ta, Shapefile kimeneti form\'e1tumra tov\'e1bbi tulajdons\'e1gokat is megadhatunk mint:\
+	- zip: t\'f6m\'f6r\'edtett form\'e1tumban k\'e9rj\'fck\
+	- typename: Feature geometriai objektum t\'edpus\'e1ra vonatkoz\'f3 sz\uc0\u369 r\'e9s, azaz, csak azokat az objektumokat tartalmazza a kimeneti shapefile-ban, amelyekre teljes\'fcl a t\'edpus megszor\'edt\'e1s.	- \
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+WMS Szolg\'e1ltat\'e1s\
+a. Bevezet\'e9s\
+OGC \'e1ltal elfogadott WMS szolg\'e1ltat\'e1sok k\'f6z\'fcl jelenleg 1.1.1 \'e9s 1.3.0 veriz\'f3k haszn\'e1latosak. WMS az egyik leggyakoribb webes k\'f6rnyezetre sz\'e1nt t\'e9rk\'e9p szolg\'e1ltat\'e1s, amely egys\'e9ges\'edtette a vektoros \'e9s raszteres t\'e9rk\'e9pek szolg\'e1ltat\'e1s\'e1t. WMS felhaszn\'e1l\'e1s\'e1val z\'f6kken\uc0\u337  mentesen lehet t\'f6bb forr\'e1sb\'f3l t\'e9rk\'e9peket lek\'e9rni.\
+GeoServer az OGC WMS szabv\'e1ny szerint teljes implement\'e1ci\'f3t szolg\'e1ltat, amely mag\'e1ba foglalja sz\'e9lesk\'f6r\uc0\u369  megjelen\'edt\'e9si \'e9s c\'edmkez\'e9si lehet\u337 s\'e9gek t\'e1mogat\'e1s\'e1t. Ezenk\'edv\'fcl, m\'e9g sz\'e1mos szolg\'e1ltat\'e1st t\'e1mogat, minnt vet\'fcletirendszerek k\'f6z\'f6tti konverzi\'f3t EPGS adatb\'e1zis felhaszn\'e1l\'e1s\'e1val.\
+St\'edlus be\'e1ll\'edt\'e1srar Styled Layer Descriptor (SLD) szabv\'e1nyt haszn\'e1l. St\'edlus bel\'e1ll\'edt\'e1sokat SLD f\'e1jlokban t\'e1rolja.\
+\
+b. WMS verzi\'f3k k\'f6z\'f6tti k\'fcl\'f6nbs\'e9gek\
+OGC webes t\'e9rk\'e9p szolg\'e1ltat\'e1s specifik\'e1ci\'f3 egy HTTP fel\'fcletet defini\'e1l georefer\'e1lt t\'e9rk\'e9pek szolg\'e1ltat\'e1s\'e1ra vonatkoz\'f3 szabv\'e1nyt szolg\'e1ltat\'f3 szerverek sz\'e1m\'e1ra. Jeleneleg el\'e9rhet\uc0\u337  verzi\'f3k 1.1.1 \'e9s 1.3.0, amelyeknek r\'e9szletes specifik\'e1ci\'f3ja a k\'f6vetkez\u337  linkeken lehet el\'e9rni:\
+	- http://portal.opengeospatial.org/files/?artifact_id=1081&version=1&format=pdf\
+ 	- http://portal.opengeospatial.org/files/?artifact_id=14416\
+\
+Az 1.1.1 \'e9s 1.3.0 verzi\'f3k k\'f6z\'f6tti f\uc0\u337 bb k\'fcl\'f6nbs\'e9gek:\
+	- Az 1.1.1 verzi\'f3 alatt hasonl\'f3 probl\'e9m\'e1k mer\'fcltek fel, mint WFS szolg\'e1ltat\'e1sban a latitude/longitude sorrendj\'e9vel, ez\'e9rt itt is el\uc0\u337 j\'f6tt. Ebb\u337 l kifoly\'f3lag, az 1.3.0 verzi\'f3ban megford\'edtott\'e1k a sorrendet.\
+	- GetMap m\uc0\u369 velet param\'e9ter\'e9ben srs helyett crs lett. Haszn\'e1lhat\'f3s\'e1gi szempontb\'f3l, GeoServer mindk\'e9t param\'e9tert t\'e1mogatja.\
+	- GetFeatureInfo m\uc0\u369 velet x \'e9s y param\'e9terei 1.3.0 verzi\'f3ban m\'e1r i \'e9s j-re v\'e1ltozott. Hasonl\'f3an a GetMap m\u369 velethez, GeoServer mindk\'e9t param\'e9terez\'e9st t\'e1mogat.\
+\
+c. WMS m\uc0\u369 veletek\
+	-  GetCapabilities: WMS szolg\'e1ltat\'e1sra vonatkoz\'f3 inform\'e1ci\'f3k, mint t\'e1mogatott m\uc0\u369 veletek, azok param\'e9terei \'e9s az el\'e9rhet\u337  r\'e9tegek listj\'e1a.\
+	- GetMap:  Kiv\'e1lasztott ter\'fcletre vonatkoz\'f3 t\'e9rk\'e9p visszak\'fcld\'e9se.\
+	- GetFeatureInfo (opcion\'e1lis): Kiv\'e1lasztott ter\'fcletre vonatkoz\'f3 metaadatok, mint geometria t\'edpus, attrib\'fatumok \'e9rt\'e9ke. Implement\'e1ci\'f3ja nem k\'f6telez\uc0\u337 .\
+	- DescribeLayer (opcion\'e1lis): Egy adott r\'e9tegre vonatkoz\'f3 inform\'e1ci\'f3k.\
+	- GetLegendGraphic (opcion\'e1lis): Jelmagyar\'e1zat lek\'e9r\'e9se az adott t\'e9rk\'e9pre.\
+\
+d. GetMap\
+GetMap m\uc0\u369 velet hat\'e1s\'e1ra a szerver kigener\'e1l egy t\'e9rk\'e9pet, az adott ter\'fcletr\u337 l. A bemeneti param\'e9terek t\'f6bb r\'e9teg \'e9s st\'edlusokat defini\'e1l, amelyek sz\'fcks\'e9gesek az adott t\'e9rk\'e9phez, mint a befoglal\'f3 t\'e9glalap m\'e9rete, vet\'fcletirendszer, sz\'e9less\'e9g, magass\'e1g, kimenti form\'e1tum. V\'e1laszk\'e9nt k\'e9pi adatokat kapunk vissza. \
+Lek\'e9rdez\'e9sre vonatkoz\'f3 param\'e9terek pontos lehet\uc0\u337 s\'e9geit a GetCapabilities v\'e1laszban lehet megtal\'e1lni. GetMap param\'e9tereinek felt\'e9rk\'e9pez\'e9s\'e9re aj\'e1nlatos a WMS Reflector haszn\'e1lata.\
+Alap\'e9rtelmezett param\'e9terek:\
+	service (k\'f6telez\uc0\u337 ): Szolg\'e1ltat\'e1s neve. \'c9r\'e9k: wms\
+	version (k\'f6telez\uc0\u337 ): WMS szolg\'e1ltat\'e1s verzi\'f3 sz\'e1ma (1.1.1 vagy 1.3.0)\
+	request (k\'f6telez\uc0\u337 ): M\u369 velet neve. \'c9rt\'e9k: GetMap.\
+	layers (k\'f6telez\uc0\u337 ): Megjelen\'edtend\u337  r\'e9tegek neve, vessz\u337 vel elv\'e1lasztva.\
+	styles (k\'f6telez\uc0\u337 ): Felhaszn\'e1land\'f3 st\'edlusok (SLD), vessz\u337 vel elv\'e1lasztva.\
+	srs/crs (k\'f6telez\uc0\u337 ): Vet\'fcleti rendszer megad\'e1sa.\
+	bbox (k\'f6telez\uc0\u337 ): Befoglal\'f3 t\'e9glalap m\'e9rete.\
+	width (k\'f6telez\uc0\u337 ): Kimeneti t\'e9rk\'e9p sz\'e9less\'e9ge pixelekben.\
+	height (k\'f6telez\uc0\u337 ): Kimeneti t\'e9rk\'e9p magass\'e1ga pixelekben.\
+	format (k\'f6telez\uc0\u337 ): Kimeneti t\'e9rk\'e9p k\'e9pi form\'e1tuma.\
+	transparent (opcion\'e1lis): T\'e9rk\'e9p h\'e1ttere \'e1ttetsz\uc0\u337 s\'e9ge.\
+	bgcolor (opcion\'e1lis): T\'e9rk\'e9p h\'e1tt\'e9rsz\'edn\'e9nek megad\'e1sa hexadecim\'e1lis sz\'e1m.\
+	exceptions (opcion\'e1lis): Hibak\'f3d \'e9s hiba\'fczenet kimeneti form\'e1tuma.\
+P\'e9lda:\
+http://localhost:8080/geoserver/wms?\
+request=GetMap\
+&service=WMS\
+&version=1.1.1\
+&layers=topp%3Astates\
+&styles=\
+&srs=EPSG%3A4326\
+&bbox=-145.15104058007,21.731919794922,-57.154894212888,58.961058642578&\
+&width=780\
+&height=330\
+&format=image%2Fpng\
+\
+e. Kimeneti form\'e1tumok\
+GetMap format=<format> param\'e9ter\'e9ben kell defini\'e1lni, milyen kimenti form\'e1tumban szeretn\'e9nk visszakapni a t\'e9rk\'e9pet, amelyek a k\'f6vetkez\uc0\u337 ek lehetnek:\
+	- PNG, PNG8, JPEG, GIF, TIFF, TIFF8, GeoTIFF, GeoTIFF8: format=image/tipus\
+	- SVG: format=image/svg\
+	- PDF: format=application/pdf\
+	- GeoRSS, KML, KMZ: format=tipus\
+	- OpenLayers: format=application/openlayers\
+\
+f. WMS R\'e9teg be\'e1ll\'edt\'e1sok:\
+R\'e9teg csoportok:\
+	Logikailag \'f6sszef\'fcgg\uc0\u337  r\'e9tegeket csoportos\'edtjuk egy r\'e9tegcsoport al\'e1, amely hat\'e9konys\'e1gi \'e9s t\'e9rk\'e9p megjelen\'edt\'e9si szempontokb\'f3l kihagyhatatlan l\'e9p\'e9s.\
+\
+K\'e9r\'e9sek bel\'e1ll\'edt\'e1sa:\
+\cf5 K\'e9r\'e9sek sz\'e1m\'e1nak korl\'e1toz\'e1sa az er\uc0\u337 forr\'e1s szempontj\'e1b\'f3l nagyon fontos be\'e1ll\'edt\'e1s, mivel minden egyes WMS GetMap k\'e9r\'e9s szerver oldali terhel\'e9s szempontj\'e1b\'f3l n\'e9zve egyenes ar\'e1nyoss\'e1ban n\u337  a k\'e9r\'e9sek sz\'e1m\'e1val.\
+	- maxRequestMemory: Maxim\'e1lis mem\'f3ri felv\'e9telre vonatkoz\'f3 megszor\'edt\'e1s, amely a sz\'fcks\'e9ges mem\'f3ria \'e9s rendelkez\'e9sre \'e1ll\'f3 mem\'f3ria ar\'e1ny\'e1t pr\'f3b\'e1lja egyens\'falyban tartani. P\'e9ld\'e1ul PNG kimeneti form\'e1tum eset\'e9n: felhaszn\'e1land\'f3 mem\'f3ria k\'f6r\'fclbel\'fcl megegyezik a t\'e9rk\'e9p m\'e9ret\'e9nek (pixelekben) szorozva b\'e1jtok sz\'e1m\'e1val.\
+	- maxRenderingTime: Maxim\'e1lis \'e1br\'e1zol\'e1shoz sz\'fcks\'e9ges id\uc0\u337 . Id\u337 t\'fall\'e9p\'e9s eset\'e9n hibak\'f3d \'e9s hiba\'fczenettel t\'e9r\'fcnk vissza.\
+	- maxRenderingErrors: Szerver \'e1ltal hibat\uc0\u369 r\'e9si hat\'e1rk\'e9nt, maxim\'e1lis \'e1br\'e1zol\'e1si hib\'e1k sz\'e1ma.\
+\
+\cf2 \'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf5 The Web Feature Service (WFS) page allows for configuration of features, service levels, and GML output.\
+\pard\pardeftab720\sl320\slleading30\sa280
+\cf5 Service Metadata\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf5 See the section on {\field{\*\fldinst{HYPERLINK "http://docs.geoserver.org/stable/en/user/webadmin/services/WCS.html#service-metadata"}}{\fldrslt \cf5 Service Metadata}}.\
+\pard\pardeftab720\sl320\slleading30\sa280
+\cf5 Features\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf5 The {\field{\*\fldinst{HYPERLINK "http://www.opengeospatial.org/"}}{\fldrslt \cf5 \ul \ulc4 Open Geospatial Consortium}} (OGC) Web Feature Service (WFS) is a standard protocol for serving geographic features across the Web. Feature information that is encoded and transported using WFS includes both feature geometry and feature attribute values. Basic Web Feature Service (WFS) supports feature query and retrieval. Feature limits and bounding can be configured on the WFS page.\
+Maximum number of features: A WFS request can potentially contain a very large dataset that is impractical to download to a client, and/or too large for a client\'92s renderer. Maximum number of features sets the global feature limit that a WFS GetFeature operation should generate, regardless of the actual number of query hits. Maximum feature limits are also available for feature types. The default number is 1000000.\cf2 \
+Return bounding box: Includes in the GetFeature GML output, an auto-calculated bounds element on each feature type. Not typically enabled, as including bounding box takes up extra bandwidth.\
+\pard\pardeftab720\sl320\slleading30\sa280
+\cf2 Service Levels\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 GeoServer is compliant with the full \'93Transactional Web Feature Server\'94 (WFS-T) level of service as defined by the OGC. Specifying the WFS service level limits the capabilities of Geoserver while still remaining compliant. The WFS Service Level is an integer bitmask that indicates what WFS operations are \'93turned on.\'94 It defines the available operations and content at a service instance\
+Basic: The Basic service levels provides facilities for searching and retrieving feature data with the GetCapabilities, DescribeFeatureType and GetFeature operations. It is compliant with the OGC basic Web Feature Service. This is considered a READ-ONLY web feature service.\
+Transactional: In addition to all basic WFS operations, transactional service level supports transaction requests. A transaction request facilities the creation, deletion, and updating of geographic features in conformance with the OGC Transactional Web Feature Service (WFS-T).\
+Complete: Includes the LockFeature support to the suite of transactional level operations. LockFeature operations help resolve links between related resources by processing lock requests on one or more instances of a feature type.\
+\pard\pardeftab720\sl320\slleading30\sa280
+\cf2 GML\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 Geography Markup Language (GML) is the XML grammar defined by the Open Geospatial Consortium (OGC) to express geographical features. GML serves as a modeling language for geographic systems as well as an open interchange format for geographic transactions on the Internet.\
+The older GML standard, {\field{\*\fldinst{HYPERLINK "http://portal.opengeospatial.org/files/?artifact_id=11339"}}{\fldrslt \ul \ulc4 GML 2}} encodes geographic information, including both spatial and non-spatial properties. GML3 extends GML2 support to 3D shapes (surfaces and solids) as well as other advanced facilities. GML3 is modular superset of GML2 that simplifies and minimizes the implementation size by allowing users to select out necessary parts. Additions in GML3 include support for complex geometries, spatial and temporal reference systems, topology, units of measure, metadata, gridded data, and default styles for feature and coverage visualization. GML3 is almost entirely backwards compatible with GML2.\
+WFS 1.1.0 requests return GML3 as the default GML and style a Spatial Reference System (SRS) is in the URN format. Meanwhile WFS 1.0.0 requests return GML2 as default and specify SRS in the XML or normal format. These formats effect the longitude/latitude (x/y) order of the returned data and are further described below.\
+Normal: Returns the typical EPSG number: EPSG:XXXX. This formats the geographic coordinates in longitude/latitude (x/y) order.\
+XML: Returns a URL that identifies each EPSG code: http://www.opengis.net/gml/srs/epsg.xml#XXXX. This formats the geographic coordinates in longitude/latitude (x/y) order.\
+URN: WFS 1.1.1 only. Returns the colon delimited SRS formatting: urn:x-ogc:def:crs:EPSG:XXXX. This formats data in the traditional axis order for geographic and cartographic systems: latitude/longitude (y/x).\
+\pard\pardeftab720\sl480\slleading30\sa140
+\cf2 	2. WMS\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 The Web Map Service (WMS) page allows for configuration of raster rendering and SVG options.\
+\pard\pardeftab720\sl320\slleading30\sa280
+\cf2 Service Metadata\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 See the section on {\field{\*\fldinst{HYPERLINK "http://docs.geoserver.org/stable/en/user/webadmin/services/WCS.html#service-metadata"}}{\fldrslt Service Metadata}}.\
+\pard\pardeftab720\sl320\slleading30\sa280
+\cf2 Raster Rendering Options\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 The Web Map Service Interface Standard (WMS) provides a simple way to request and serve geo-registered map images. During pan and zoom operations, WMS requests generate map images through a variety of raster rendering processes. Such image manipulation is generally called resampling, interpolation, or down-sampling. GeoServer supports three resampling methods that determine how cell values of a raster are outputted. These sampling methods\'96Nearest Neighbor, Bilinear Interpolation and Bicubic\'96are available on the Default Interpolation drop-down menu.\
+Nearest Neighbor: Uses the center of nearest input cell to determine the value of the output cell. Original values are retained and no new averages are created. Because image values stay exactly the same, rendering is fast but possibly pixelated from sharp edge detail. Nearest neighbor interpolation is recommended for categorical data such as land use classification.\
+Bilinear Determines the value of the output cell based by sampling the value of the four nearest cells by linear weighting. The closer an input cell, the higher its influence of on the output cell value. Since output values may differ from nearest input, bilinear interpolation is recommended for continuous data like elevation and raw slope values. Bilinear interpolation takes about five times as long as nearest neighbor interpolation.\
+Bicubic Looks at the sixteen nearest cells and fits a smooth curve through the points to find the output value. Bicubic interpolation may both change the input value as well as place the output value outside of the range of input values. Bicubic interpolation is recommended for smoothing continuous data, but at significant costs to speed.\
+\pard\pardeftab720\sl320\slleading30\sa280
+\cf2 Watermark Settings\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 Watermarking is the process of embedding an image into a map. Watermarks are usually used for branding, copyright and security measures. Configuring watermarking is done in the WMS watermark settings section.\
+Enable Watermark: Turns on watermarking. When checked, all maps will render with the same watermark. It is not currently possible to specify watermarking on a per-layer or per-feature basis.\
+Watermark URL: This is the location of the graphic for the watermark. The graphic can be referenced as an absolute path (e.g.,C:GeoServerwatermark.png), a relative one inside GeoServer\'92s data directory (e.g., watermark.png), or a URL (e.g.,http://www.example.com/images/watermark.png).\
+Each of these methods have their own advantages and disadvantages. When using an absolute or relative link, GeoServer keeps a cached copy of the graphic in memory, and won\'92t continually link to the original file. This means that if the original file is subsequently deleted, GeoServer won\'92t register it missing until the watermark settings are edited. Using a URL might seem more convenient, but it is more I/O intensive. GeoServer will load the watermark image for every WMS request. Also, should the URL cease to be valid, the layer will not properly display.\
+Watermark Transparency: Determines the opacity level of the watermark. Numbers range between 0 (opaque) and 100 (fully invisible).\
+Watermark Position: Specifies the position of the watermark relative to the WMS request. The nine options indicate which side and corner to place the graphic (top-left, top-center, top-right, etc). The default watermark position is bottom-right. Note that the watermark will always be displayed flush with the boundary. If extra space is desired, the graphic itself needs to change.\
+Because each WMS request renders the watermark, a single tiled map positions one watermark relative to the view window while a tiled map positions the watermark for each tile. The only layer specific aspect of watermarking occurs because a single tile map is one WMS request, whereas a tiled map contains many WMS requests. (The latter watermark display resembles Google Maps faint copyright notice in their Satellite imagery.) The following three examples demonstrate watermark position, transparency and tiling display, respectively.\
+\pard\pardeftab720\slleading30\sa300
+\cf2 SVG Options\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 The GeoServer WMS supports SVG (Scalable Vector Graphics) as an output format. GeoServer currently supports two SVG renderers available on the SVG producer drop down menu.\
+SVG Producer:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl320\slleading30
+\ls2\ilvl0\cf2 {\listtext	1.	}Simple: Simple SVG renderer. It has limited support for SLD styling, but is very fast.\
+{\listtext	2.	}Batik: Batik renderer (as it uses the Batik SVG Framework). It has full support for SLD styling, but is slower.\
+\pard\pardeftab720\sl320\slleading30\sa320
+\cf2 Enable Anti-aliasing Anti-aliasing is a technique for making edges appear smoother by filling in the edges of an object with pixels that are between the object\'92s color and the background color. Anti-aliasing creates the illusion of smoother lines and smoother selections. Turning on anti-aliasing will generally make your maps look nicer, but will increase the size of the images returned, and will take a slight bit longer. Note that if you are overlaying the anti-aliased map on top of others it can sometimes backfire with transparencies, since it mixes with the colors behind and can create a \'93halo\'94 effect.\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\slleading30\pardirnatural
+\cf2 \
+Gyakorl\'f3 feladatok:\
+	1. Shapefile let\'f6lt\'e9se\
+	- T\'f6lts\'fck le a world_countries.zip \'e1llom\'e1nyt a k\'f6vetkez\uc0\u337  c\'edmr\u337 l: http://people.inf.elte.hu/ntb/feladatok/world_countries.zip\
+	- T\'f6m\'f6r\'edts\'fck ki\
+	- Tetsz\uc0\u337 leges GIS szoftverrel (QGIS, ARCGIS, ...) ellen\u337 r\'edzz\'fck az adatot\
+\
+	2. Shapefile beimport\'e1l\'e1sa GeoServer-be\
+		a. Adatforr\'e1s \'e1tm\'e1sol\'e1sa GeoServer alap\'e9rtelmezett data k\'f6nyvt\'e1r\'e1ba.\
+			- data_dir/data k\'f6nyvt\'e1r al\'e1 m\'e1soljuk \'e1t, a world_countries.zip kit\'f6m\'f6r\'edtett k\'f6nyvt\'e1rt.\
+\
+		b. Workspace l\'e9trehoz\'e1sa\
+			- Hozzunk l\'e9tre egy world_countries_shp workspace-t a Geoserver-en.\
+			- Neve: world_countries_shp\
+			- URI: tetsz\uc0\u337 legesen kit\'f6lthet\u337 \
+		c. Store l\'e9trehoz\'e1sa\
+			- Add new store\
+			- Shapefile - ESRI(tm) Shapefiles (*.shp) kiv\'e1laszt\'e1sa\
+			- Name: world_shp\
+			- Description: Vil\'e1g orsz\'e1gainak hat\'e1rvonala.\
+			- Charset: karakterk\'e9szlete legyen UTF-8\
+			- Ments\'fck el a store-t.\
+		d. Layer - R\'e9teg l\'e9trehoz\'e1sa\
+			- Add new resource linkre kattintva adjunk egy \'faj r\'e9teget.\
+			- V\'e1lasszuk ki world_shp store-t\
+			- Publish linkre kattintva aktiv\'e1ljuk a world_shp r\'e9teget.\
+			- Name: world_countries\
+			- Title: Vil\'e1g orsz\'e1gai\
+			- Declared SRS: EPSG:4326\
+			- Native Bounding Box: \'93Compute from data\'94 linkre kattintva automatikusan kit\'f6lt\uc0\u337 dned az adatok.\
+			- Lat/Lon Bounding Box: \'93Compute from native bound\'94\'94 linkre kattintva automatikusan kit\'f6lt\uc0\u337 dned az adatok.\
+			- Save gombra kattintva, aktiv\'e1ltuk a world_countries r\'e9teget.\
+			- Ellen\uc0\u337 r\'edzz\'fck: Layer preview link alatt tal\'e1ljuk a world_countries r\'e9teget. Open Layers linkre kattintva tekinthetj\'fck meg a r\'e9teget.\
+			\
+	\
+	\
+	\
+  2. Vektoros adatok bet\'f6lt\'e9se\
+	a. Shapefile haszn\'e1lata\
+\
+	b. Postgis haszn\'e1lata\
+\
+IV. Konfigur\'e1ci\'f3\
+  >>>>Working with Application Schemas<<<<\
+\
+V. Optimaliz\'e1ci\'f3\
+\
+VII. Fogalmak\
+\
+------------------------------------------\
+	1. REST (Representational State Transfer) egy struktur\'e1lis tervminta, amely elosztott rendszerekre lett kital\'e1lva. Az ut\'f3bbi \'e9vekben, szinte felv\'e1ltotta a r\'e9gi megszokott web szolg\'e1ltat\'e1sok mint, SOAP vagy WSDL.\
+    N\'e9gy alapvet\uc0\u337  m\u369 velete:\
+      - GET: k\'e9r\'e9s\
+	  - POST: k\'fcld\'e9s\
+      - PUT: jav\'edt\'e1s\
+      - DELETE: t\'f6rl\'e9s\
+------------------------------------------\
+\
+}
